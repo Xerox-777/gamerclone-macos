@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+src-tauri/target/
+src-tauri/gen/
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files from icon generation
+app-icon.svg
+src-tauri/icons/icon-16.png
+src-tauri/icons/icon-48.png
+src-tauri/icons/icon-256.png

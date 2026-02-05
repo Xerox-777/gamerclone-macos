@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicegui/nicegui/main/nicegui/schemas/tauri-acl-v2-capability.schema.json",
+  "identifier": "default",
+  "description": "Default permissions for GamerClone",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "store:default",
+    "core:tray:default"
+  ]
+}
