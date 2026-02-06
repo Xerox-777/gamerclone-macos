@@ -10,9 +10,7 @@ pub struct AudioDeviceInfo {
 
 pub fn list_input_devices() -> Result<Vec<AudioDeviceInfo>, String> {
     let host = cpal::default_host();
-    let default_name = host
-        .default_input_device()
-        .and_then(|d| d.name().ok());
+    let default_name = host.default_input_device().and_then(|d| d.name().ok());
 
     let devices: Vec<AudioDeviceInfo> = host
         .input_devices()
@@ -31,9 +29,7 @@ pub fn list_input_devices() -> Result<Vec<AudioDeviceInfo>, String> {
 
 pub fn list_output_devices() -> Result<Vec<AudioDeviceInfo>, String> {
     let host = cpal::default_host();
-    let default_name = host
-        .default_output_device()
-        .and_then(|d| d.name().ok());
+    let default_name = host.default_output_device().and_then(|d| d.name().ok());
 
     let devices: Vec<AudioDeviceInfo> = host
         .output_devices()

@@ -1,6 +1,8 @@
-use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::{Arc, Mutex};
 use std::collections::VecDeque;
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::Arc;
+
+use parking_lot::Mutex;
 
 use cpal::traits::{DeviceTrait, StreamTrait};
 
@@ -32,6 +34,12 @@ pub struct AudioRecorder {
     channels: Mutex<u16>,
 }
 
+impl Default for AudioRecorder {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl AudioRecorder {
     pub fn new() -> Self {
         Self {
@@ -61,12 +69,13 @@ impl AudioRecorder {
         let sample_rate = config.sample_rate().0;
         let channels = config.channels();
 
-        *self.sample_rate.lock().unwrap() = sample_rate;
-        *self.channels.lock().unwrap() = channels;
+        *self.sample_rate.lock() = sample_rate;
+        *self.channels.lock() = channels;
 
         // Calculate pre-roll capacity in samples
-        let pre_roll_samples = (sample_rate as usize * channels as usize * PRE_ROLL_MS as usize) / 1000;
-        *self.pre_roll_capacity.lock().unwrap() = pre_roll_samples;
+        let pre_roll_samples =
+            (sample_rate as usize * channels as usize * PRE_ROLL_MS as usize) / 1000;
+        *self.pre_roll_capacity.lock() = pre_roll_samples;
 
         // Calculate max recording samples
         let max_samples = (sample_rate as f32 * channels as f32 * MAX_RECORDING_SECS) as usize;
@@ -83,7 +92,7 @@ impl AudioRecorder {
                 &stream_config,
                 move |data: &[f32], _: &cpal::InputCallbackInfo| {
                     if is_recording.load(Ordering::Relaxed) {
-                        let mut samples = recording_samples.lock().unwrap();
+                        let mut samples = recording_samples.lock();
                         if samples.len() < max_samples {
                             let remaining = max_samples - samples.len();
                             let to_copy = data.len().min(remaining);
@@ -92,9 +101,9 @@ impl AudioRecorder {
                         // Auto-stop handled by stop_recording check
                     } else {
                         // Fill pre-roll circular buffer
-                        let cap = *pre_roll_cap.lock().unwrap();
+                        let cap = *pre_roll_cap.lock();
                         if cap > 0 {
-                            let mut buf = pre_roll_buffer.lock().unwrap();
+                            let mut buf = pre_roll_buffer.lock();
                             for &sample in data {
                                 if buf.len() >= cap {
                                     buf.pop_front();
@@ -111,14 +120,18 @@ impl AudioRecorder {
             )
             .map_err(|e| format!("Failed to build input stream: {e}"))?;
 
-        stream.play().map_err(|e| format!("Failed to start input stream: {e}"))?;
+        stream
+            .play()
+            .map_err(|e| format!("Failed to start input stream: {e}"))?;
 
-        *self.stream_state.lock().unwrap() = Some(StreamState {
-            _stream: stream,
-        });
+        *self.stream_state.lock() = Some(StreamState { _stream: stream });
         self.is_stream_active.store(true, Ordering::Relaxed);
 
-        let device_display = if device_name.is_empty() { "default" } else { device_name };
+        let device_display = if device_name.is_empty() {
+            "default"
+        } else {
+            device_name
+        };
         tracing::info!(
             "Audio input stream started: {device_display} ({sample_rate}Hz, {channels}ch)"
         );
@@ -128,18 +141,18 @@ impl AudioRecorder {
 
     pub fn start_recording(&self) {
         // Clear previous recording
-        self.recording_samples.lock().unwrap().clear();
+        self.recording_samples.lock().clear();
 
         // Prepend pre-roll buffer
         {
-            let pre_roll = self.pre_roll_buffer.lock().unwrap();
+            let pre_roll = self.pre_roll_buffer.lock();
             if !pre_roll.is_empty() {
-                let mut samples = self.recording_samples.lock().unwrap();
+                let mut samples = self.recording_samples.lock();
                 samples.extend(pre_roll.iter());
             }
         }
 
-        *self.recording_start.lock().unwrap() = Some(std::time::Instant::now());
+        *self.recording_start.lock() = Some(std::time::Instant::now());
         self.is_recording.store(true, Ordering::Relaxed);
         tracing::debug!("Recording started");
     }
@@ -148,17 +161,17 @@ impl AudioRecorder {
         self.is_recording.store(false, Ordering::Relaxed);
 
         // Check minimum duration
-        if let Some(start) = self.recording_start.lock().unwrap().take() {
+        if let Some(start) = self.recording_start.lock().take() {
             let duration_ms = start.elapsed().as_millis();
             if duration_ms < MIN_RECORDING_MS {
                 tracing::debug!("Recording too short ({duration_ms}ms), discarding");
-                self.recording_samples.lock().unwrap().clear();
+                self.recording_samples.lock().clear();
                 return Err("Recording too short (< 200ms)".to_string());
             }
         }
 
         let samples = {
-            let mut s = self.recording_samples.lock().unwrap();
+            let mut s = self.recording_samples.lock();
             std::mem::take(&mut *s)
         };
 
@@ -166,11 +179,15 @@ impl AudioRecorder {
             return Err("No audio recorded".to_string());
         }
 
-        let sample_rate = *self.sample_rate.lock().unwrap();
-        let channels = *self.channels.lock().unwrap();
+        let sample_rate = *self.sample_rate.lock();
+        let channels = *self.channels.lock();
 
         let duration_secs = samples.len() as f32 / (sample_rate as f32 * channels as f32);
-        tracing::debug!("Recording stopped: {:.1}s, {} samples", duration_secs, samples.len());
+        tracing::debug!(
+            "Recording stopped: {:.1}s, {} samples",
+            duration_secs,
+            samples.len()
+        );
 
         encode_wav(&samples, sample_rate, channels)
     }
@@ -184,7 +201,7 @@ impl AudioRecorder {
     }
 
     fn stop_stream(&self) {
-        let mut state = self.stream_state.lock().unwrap();
+        let mut state = self.stream_state.lock();
         if state.is_some() {
             *state = None; // Drop the stream
             self.is_stream_active.store(false, Ordering::Relaxed);

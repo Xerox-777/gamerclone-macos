@@ -1,4 +1,6 @@
 pub mod local;
+#[cfg(test)]
+pub mod mock;
 pub mod types;
 
 use anyhow::Result;

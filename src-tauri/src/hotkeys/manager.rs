@@ -1,5 +1,7 @@
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
+
+use parking_lot::Mutex;
 
 use rdev::{Button, Event, EventType, Key};
 use tauri::Emitter;
@@ -51,7 +53,9 @@ impl PttBinding {
 
         // Validate: reject game-critical keys
         if is_blocked_key(&key) {
-            return Err(format!("Key '{s}' is blocked — it conflicts with common game controls"));
+            return Err(format!(
+                "Key '{s}' is blocked — it conflicts with common game controls"
+            ));
         }
 
         Ok(PttBinding::Key(key))
@@ -96,10 +100,18 @@ impl PttBinding {
 
     fn matches_event(&self, event_type: &EventType) -> bool {
         match (self, event_type) {
-            (PttBinding::Key(k), EventType::KeyPress(ek)) => std::mem::discriminant(k) == std::mem::discriminant(ek),
-            (PttBinding::Key(k), EventType::KeyRelease(ek)) => std::mem::discriminant(k) == std::mem::discriminant(ek),
-            (PttBinding::Button(b), EventType::ButtonPress(eb)) => std::mem::discriminant(b) == std::mem::discriminant(eb),
-            (PttBinding::Button(b), EventType::ButtonRelease(eb)) => std::mem::discriminant(b) == std::mem::discriminant(eb),
+            (PttBinding::Key(k), EventType::KeyPress(ek)) => {
+                std::mem::discriminant(k) == std::mem::discriminant(ek)
+            }
+            (PttBinding::Key(k), EventType::KeyRelease(ek)) => {
+                std::mem::discriminant(k) == std::mem::discriminant(ek)
+            }
+            (PttBinding::Button(b), EventType::ButtonPress(eb)) => {
+                std::mem::discriminant(b) == std::mem::discriminant(eb)
+            }
+            (PttBinding::Button(b), EventType::ButtonRelease(eb)) => {
+                std::mem::discriminant(b) == std::mem::discriminant(eb)
+            }
             _ => false,
         }
     }
@@ -130,6 +142,12 @@ pub struct HotkeyManager {
     is_running: AtomicBool,
 }
 
+impl Default for HotkeyManager {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl HotkeyManager {
     pub fn new() -> Self {
         Self {
@@ -154,11 +172,10 @@ impl HotkeyManager {
             .spawn(move || {
                 tracing::info!("Hotkey listener thread started");
 
-                let press_time: Arc<Mutex<Option<std::time::Instant>>> =
-                    Arc::new(Mutex::new(None));
+                let press_time: Arc<Mutex<Option<std::time::Instant>>> = Arc::new(Mutex::new(None));
 
                 let callback = move |event: Event| {
-                    let current_binding = binding.lock().unwrap().clone();
+                    let current_binding = binding.lock().clone();
 
                     let is_press = matches!(
                         event.event_type,
@@ -175,7 +192,7 @@ impl HotkeyManager {
 
                     if is_press && !is_ptt_held.load(Ordering::Relaxed) {
                         is_ptt_held.store(true, Ordering::Relaxed);
-                        *press_time.lock().unwrap() = Some(std::time::Instant::now());
+                        *press_time.lock() = Some(std::time::Instant::now());
                         let _ = app_handle.emit("ptt-started", ());
                         tracing::debug!("PTT pressed");
                     } else if is_release && is_ptt_held.load(Ordering::Relaxed) {
@@ -184,7 +201,6 @@ impl HotkeyManager {
                         // Filter taps < 200ms
                         let duration_ms = press_time
                             .lock()
-                            .unwrap()
                             .take()
                             .map(|t| t.elapsed().as_millis())
                             .unwrap_or(0);
@@ -214,13 +230,16 @@ impl HotkeyManager {
 
     pub fn set_ptt_binding(&self, key_str: &str) -> Result<(), String> {
         let new_binding = PttBinding::from_string(key_str)?;
-        tracing::info!("PTT binding changed to: {}", new_binding.to_display_string());
-        *self.binding.lock().unwrap() = new_binding;
+        tracing::info!(
+            "PTT binding changed to: {}",
+            new_binding.to_display_string()
+        );
+        *self.binding.lock() = new_binding;
         Ok(())
     }
 
     pub fn get_ptt_binding(&self) -> String {
-        self.binding.lock().unwrap().to_display_string()
+        self.binding.lock().to_display_string()
     }
 
     pub fn is_ptt_held(&self) -> bool {

@@ -41,6 +41,7 @@ pub struct VoiceQueryResult {
 }
 
 /// RAII guard that resets the processing flag on drop.
+#[derive(Debug)]
 struct ProcessingGuard<'a> {
     flag: &'a AtomicBool,
 }
@@ -110,10 +111,9 @@ impl VoicePipeline {
         let _guard = ProcessingGuard::acquire(&self.is_processing)?;
 
         // 1. Stop recording and get WAV bytes
-        let wav_bytes = audio_recorder.stop_recording().map_err(|e| {
-            Self::emit_error(app, "recording", &e);
+        let wav_bytes = audio_recorder.stop_recording().inspect_err(|e| {
+            Self::emit_error(app, "recording", e);
             audio_player.play_cue(AudioCue::Error);
-            e
         })?;
 
         tracing::info!("Recording stopped, {} bytes of WAV data", wav_bytes.len());
@@ -121,16 +121,12 @@ impl VoicePipeline {
         // 2. Transcribe audio
         Self::emit_stage(app, "transcribing", "Converting speech to text...");
 
-        let transcript = self
-            .service
-            .transcribe(wav_bytes)
-            .await
-            .map_err(|e| {
-                let msg = format!("Transcription failed: {e}");
-                Self::emit_error(app, "transcribing", &msg);
-                audio_player.play_cue(AudioCue::Error);
-                msg
-            })?;
+        let transcript = self.service.transcribe(wav_bytes).await.map_err(|e| {
+            let msg = format!("Transcription failed: {e}");
+            Self::emit_error(app, "transcribing", &msg);
+            audio_player.play_cue(AudioCue::Error);
+            msg
+        })?;
 
         if transcript.is_empty() {
             let msg = "No speech detected in recording".to_string();
@@ -155,9 +151,7 @@ impl VoicePipeline {
             .collect();
 
         let screenshot_count = screenshots.len();
-        tracing::info!(
-            "Collected {screenshot_count} screenshots for vision analysis"
-        );
+        tracing::info!("Collected {screenshot_count} screenshots for vision analysis");
 
         // 5. RAG search for relevant knowledge
         Self::emit_stage(app, "searching", "Searching knowledge base...");
@@ -233,5 +227,50 @@ impl VoicePipeline {
 
     pub fn is_processing(&self) -> bool {
         self.is_processing.load(Ordering::Relaxed)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::services::mock::MockCoachingService;
+
+    #[test]
+    fn test_processing_guard_acquire_release() {
+        let flag = AtomicBool::new(false);
+        {
+            let guard = ProcessingGuard::acquire(&flag);
+            assert!(guard.is_ok());
+            assert!(flag.load(Ordering::SeqCst));
+        }
+        // Guard dropped — flag should be reset
+        assert!(!flag.load(Ordering::SeqCst));
+    }
+
+    #[test]
+    fn test_processing_guard_double_acquire_fails() {
+        let flag = AtomicBool::new(false);
+        let _guard = ProcessingGuard::acquire(&flag).unwrap();
+        let second = ProcessingGuard::acquire(&flag);
+        assert!(second.is_err());
+        assert_eq!(second.unwrap_err(), "Query already in progress".to_string());
+    }
+
+    #[test]
+    fn test_processing_guard_reacquire_after_drop() {
+        let flag = AtomicBool::new(false);
+        {
+            let _guard = ProcessingGuard::acquire(&flag).unwrap();
+        }
+        // Should succeed after drop
+        let guard = ProcessingGuard::acquire(&flag);
+        assert!(guard.is_ok());
+    }
+
+    #[test]
+    fn test_voice_pipeline_default_not_processing() {
+        let service = Arc::new(MockCoachingService::default());
+        let pipeline = VoicePipeline::new(service);
+        assert!(!pipeline.is_processing());
     }
 }

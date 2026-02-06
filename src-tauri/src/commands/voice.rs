@@ -15,7 +15,7 @@ pub async fn process_voice_query(
     state: State<'_, AppState>,
     game_id: Option<String>,
 ) -> Result<VoiceQueryResult, String> {
-    let gid = game_id.unwrap_or_else(|| state.active_game_id.lock().unwrap().clone());
+    let gid = game_id.unwrap_or_else(|| state.active_game_id.lock().clone());
 
     state
         .voice_pipeline

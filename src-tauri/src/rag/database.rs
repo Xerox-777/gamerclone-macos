@@ -1,8 +1,8 @@
 use anyhow::{Context, Result};
+use parking_lot::Mutex;
 use rusqlite::{ffi::sqlite3_auto_extension, params, Connection};
 use serde::Deserialize;
 use sqlite_vec::sqlite3_vec_init;
-use std::sync::Mutex;
 use zerocopy::AsBytes;
 
 use super::embeddings::EmbeddingEngine;
@@ -30,9 +30,8 @@ impl RagDatabase {
     pub fn new(db_path: &str) -> Result<Self> {
         // Register sqlite-vec extension before opening any connection
         unsafe {
-            sqlite3_auto_extension(Some(std::mem::transmute(
-                sqlite3_vec_init as *const (),
-            )));
+            #[allow(clippy::missing_transmute_annotations)]
+            sqlite3_auto_extension(Some(std::mem::transmute(sqlite3_vec_init as *const ())));
         }
 
         // Ensure parent directory exists
@@ -40,8 +39,7 @@ impl RagDatabase {
             std::fs::create_dir_all(parent).ok();
         }
 
-        let conn = Connection::open(db_path)
-            .context("Failed to open RAG database")?;
+        let conn = Connection::open(db_path).context("Failed to open RAG database")?;
 
         // Verify sqlite-vec loaded
         let vec_version: String = conn
@@ -60,12 +58,11 @@ impl RagDatabase {
             );
             CREATE VIRTUAL TABLE IF NOT EXISTS knowledge_vec USING vec0(
                 embedding float[384]
-            );"
+            );",
         )
         .context("Failed to create RAG schema")?;
 
-        let engine = EmbeddingEngine::new()
-            .context("Failed to initialize embedding engine")?;
+        let engine = EmbeddingEngine::new().context("Failed to initialize embedding engine")?;
 
         Ok(Self {
             conn: Mutex::new(conn),
@@ -75,7 +72,7 @@ impl RagDatabase {
 
     /// Check if the knowledge table has any rows.
     pub fn is_seeded(&self) -> bool {
-        let conn = self.conn.lock().unwrap();
+        let conn = self.conn.lock();
         let count: i64 = conn
             .query_row("SELECT COUNT(*) FROM knowledge", [], |r| r.get(0))
             .unwrap_or(0);
@@ -102,13 +99,17 @@ impl RagDatabase {
 
         // Batch embed
         let embeddings = {
-            let engine = self.engine.lock().unwrap();
-            engine.embed_batch(&texts).context("Batch embedding failed")?
+            let engine = self.engine.lock();
+            engine
+                .embed_batch(&texts)
+                .context("Batch embedding failed")?
         };
 
         // Insert into both tables
-        let conn = self.conn.lock().unwrap();
-        let tx = conn.unchecked_transaction().context("Failed to begin transaction")?;
+        let conn = self.conn.lock();
+        let tx = conn
+            .unchecked_transaction()
+            .context("Failed to begin transaction")?;
 
         {
             let mut insert_knowledge = tx
@@ -140,11 +141,11 @@ impl RagDatabase {
     pub fn search(&self, query: &str, game_id: &str, limit: usize) -> Result<Vec<KnowledgeChunk>> {
         // Embed the query
         let query_embedding = {
-            let engine = self.engine.lock().unwrap();
+            let engine = self.engine.lock();
             engine.embed_text(query).context("Failed to embed query")?
         };
 
-        let conn = self.conn.lock().unwrap();
+        let conn = self.conn.lock();
 
         // Over-fetch from vector table, then filter by game_id
         let fetch_limit = limit * 5;

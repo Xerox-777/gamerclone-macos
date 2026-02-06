@@ -17,7 +17,9 @@ pub fn list_audio_devices(kind: String) -> Result<Vec<AudioDeviceInfo>, String> 
     match kind.as_str() {
         "input" => list_input_devices(),
         "output" => list_output_devices(),
-        _ => Err(format!("Invalid device kind: {kind}. Use 'input' or 'output'.")),
+        _ => Err(format!(
+            "Invalid device kind: {kind}. Use 'input' or 'output'."
+        )),
     }
 }
 

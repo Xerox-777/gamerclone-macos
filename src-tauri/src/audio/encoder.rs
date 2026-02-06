@@ -3,7 +3,11 @@ use std::io::Cursor;
 const TARGET_SAMPLE_RATE: usize = 16000;
 
 /// Encode raw f32 audio samples to 16kHz mono 16-bit WAV (Whisper-compatible).
-pub fn encode_wav(samples: &[f32], source_sample_rate: u32, source_channels: u16) -> Result<Vec<u8>, String> {
+pub fn encode_wav(
+    samples: &[f32],
+    source_sample_rate: u32,
+    source_channels: u16,
+) -> Result<Vec<u8>, String> {
     if samples.is_empty() {
         return Err("No audio samples to encode".to_string());
     }
@@ -60,7 +64,9 @@ pub fn encode_wav(samples: &[f32], source_sample_rate: u32, source_channels: u16
 }
 
 fn resample(input: &[f32], from_rate: usize, to_rate: usize) -> Result<Vec<f32>, String> {
-    use rubato::{SincFixedIn, SincInterpolationParameters, SincInterpolationType, WindowFunction, Resampler};
+    use rubato::{
+        Resampler, SincFixedIn, SincInterpolationParameters, SincInterpolationType, WindowFunction,
+    };
 
     let params = SincInterpolationParameters {
         sinc_len: 256,
@@ -159,15 +165,16 @@ mod tests {
 
         // Resampled count should be ~16000 (5% tolerance)
         let count = reader.len() as f64;
-        assert!((count - 16000.0).abs() / 16000.0 < 0.05, "got {count} samples");
+        assert!(
+            (count - 16000.0).abs() / 16000.0 < 0.05,
+            "got {count} samples"
+        );
     }
 
     #[test]
     fn test_stereo_48khz() {
         // 48000 stereo frames = 96000 samples at 48kHz
-        let samples: Vec<f32> = (0..96000)
-            .map(|i| (i as f32 * 0.001).sin())
-            .collect();
+        let samples: Vec<f32> = (0..96000).map(|i| (i as f32 * 0.001).sin()).collect();
         let wav = encode_wav(&samples, 48000, 2).unwrap();
 
         let reader = hound::WavReader::new(Cursor::new(&wav)).unwrap();
@@ -196,9 +203,8 @@ mod tests {
         let mut reader = hound::WavReader::new(Cursor::new(&wav)).unwrap();
         let output: Vec<i16> = reader.samples::<i16>().map(|s| s.unwrap()).collect();
 
-        for &s in &output {
-            assert!(s >= i16::MIN && s <= i16::MAX);
-        }
+        // Verify we got the expected number of samples
+        assert_eq!(output.len(), 5);
         // First sample (2.0 clamped to 1.0) should be near i16::MAX
         assert!(output[0] > 30000);
         // Second sample (-3.0 clamped to -1.0) should be near i16::MIN

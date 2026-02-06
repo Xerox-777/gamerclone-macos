@@ -3,11 +3,11 @@ use async_openai::{
     config::OpenAIConfig,
     types::{
         AudioInput, AudioResponseFormat, ChatCompletionRequestMessage,
-        ChatCompletionRequestMessageContentPartImage,
-        ChatCompletionRequestSystemMessageArgs, ChatCompletionRequestUserMessageArgs,
-        ChatCompletionRequestUserMessageContent, ChatCompletionRequestUserMessageContentPart,
-        CreateChatCompletionRequestArgs, CreateSpeechRequestArgs, CreateTranscriptionRequestArgs,
-        ImageDetail, ImageUrl, SpeechModel, SpeechResponseFormat, Voice,
+        ChatCompletionRequestMessageContentPartImage, ChatCompletionRequestSystemMessageArgs,
+        ChatCompletionRequestUserMessageArgs, ChatCompletionRequestUserMessageContent,
+        ChatCompletionRequestUserMessageContentPart, CreateChatCompletionRequestArgs,
+        CreateSpeechRequestArgs, CreateTranscriptionRequestArgs, ImageDetail, ImageUrl,
+        SpeechModel, SpeechResponseFormat, Voice,
     },
     Client,
 };
@@ -27,27 +27,29 @@ pub struct LocalCoachingService {
 }
 
 impl LocalCoachingService {
-    pub fn new(rag_db: Arc<RagDatabase>) -> Self {
-        let api_key = std::env::var("OPENAI_API_KEY")
-            .expect("OPENAI_API_KEY must be set in .env file");
+    pub fn new(rag_db: Arc<RagDatabase>) -> Result<Self> {
+        let api_key = std::env::var("OPENAI_API_KEY").map_err(|_| {
+            anyhow::anyhow!(
+                "OPENAI_API_KEY not found. Create a .env file with OPENAI_API_KEY=sk-..."
+            )
+        })?;
 
         let config = OpenAIConfig::new().with_api_key(api_key);
         let client = Client::with_config(config);
 
         let tts_voice = std::env::var("TTS_VOICE").unwrap_or_else(|_| "nova".to_string());
-        let vision_model =
-            std::env::var("VISION_MODEL").unwrap_or_else(|_| "gpt-4o".to_string());
+        let vision_model = std::env::var("VISION_MODEL").unwrap_or_else(|_| "gpt-4o".to_string());
 
         tracing::info!(
             "LocalCoachingService initialized (model={vision_model}, voice={tts_voice})"
         );
 
-        Self {
+        Ok(Self {
             client,
             tts_voice,
             vision_model,
             rag_db,
-        }
+        })
     }
 
     fn build_system_prompt(profile: &GameProfile, rag_context: &[KnowledgeChunk]) -> String {
@@ -172,7 +174,9 @@ impl CoachingService for LocalCoachingService {
                 .build()?
                 .into(),
             ChatCompletionRequestUserMessageArgs::default()
-                .content(ChatCompletionRequestUserMessageContent::Array(content_parts))
+                .content(ChatCompletionRequestUserMessageContent::Array(
+                    content_parts,
+                ))
                 .build()?
                 .into(),
         ];

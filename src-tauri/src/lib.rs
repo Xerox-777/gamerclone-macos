@@ -2,8 +2,8 @@ pub mod commands;
 pub mod services;
 pub mod state;
 
-pub mod capture;
 pub mod audio;
+pub mod capture;
 pub mod hotkeys;
 
 pub mod pipeline;

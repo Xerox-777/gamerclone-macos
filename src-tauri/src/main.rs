@@ -34,17 +34,27 @@ fn main() {
             }
         }))
         .plugin(tauri_plugin_store::Builder::default().build())
-        .manage(AppState::new())
         .setup(|app| {
+            // Create and manage state (can fail gracefully)
+            let state = AppState::new().map_err(|e| {
+                tracing::error!("Initialization failed: {e}");
+                anyhow::anyhow!(e)
+            })?;
+            app.manage(state);
+
             // Build tray menu
-            let settings_item =
-                MenuItem::with_id(app, "settings", "Settings", true, None::<&str>)?;
+            let settings_item = MenuItem::with_id(app, "settings", "Settings", true, None::<&str>)?;
             let quit_item = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
             let menu = Menu::with_items(app, &[&settings_item, &quit_item])?;
 
-            // Build tray icon
+            // Build tray icon — use default icon with fallback
+            let icon = app
+                .default_window_icon()
+                .cloned()
+                .unwrap_or_else(|| tauri::image::Image::new(&[], 0, 0));
+
             TrayIconBuilder::new()
-                .icon(app.default_window_icon().unwrap().clone())
+                .icon(icon)
                 .menu(&menu)
                 .tooltip("GamerClone - AI Gaming Coach")
                 .on_menu_event(|app, event| match event.id.as_ref() {
@@ -86,7 +96,7 @@ fn main() {
                         if let Some(val) = store.get("activeGameId") {
                             if let Some(game_id) = val.as_str() {
                                 if gamerclone::profiles::get_profile(game_id).is_some() {
-                                    *state.active_game_id.lock().unwrap() = game_id.to_string();
+                                    *state.active_game_id.lock() = game_id.to_string();
                                     tracing::info!("Restored active game profile: {game_id}");
                                 }
                             }

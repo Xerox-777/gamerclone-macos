@@ -69,6 +69,33 @@ cd src-tauri && cargo test -- --ignored
 npx tsc --noEmit
 ```
 
+## CI/CD
+
+Push to `main` or open a PR to trigger the CI workflow (`.github/workflows/ci.yml`), which runs three parallel jobs:
+
+- **Rust Checks** — `cargo fmt --check`, `cargo clippy -- -D warnings`, `cargo test`
+- **TypeScript Checks** — `tsc --noEmit`, `pnpm build`
+- **Cargo Build** — `cargo check` (full compilation verification)
+
+To build a release installer, push a version tag:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+This triggers the release workflow (`.github/workflows/release.yml`) which builds the NSIS installer and uploads it as a GitHub Actions artifact.
+
+### Local Pre-Push Checks
+
+```bash
+cargo fmt --manifest-path src-tauri/Cargo.toml --check
+cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets --no-default-features --features local -- -D warnings
+cargo test --manifest-path src-tauri/Cargo.toml --no-default-features --features local
+pnpm exec tsc --noEmit
+pnpm build
+```
+
 ## Configuration
 
 Environment variables in `.env` (project root):

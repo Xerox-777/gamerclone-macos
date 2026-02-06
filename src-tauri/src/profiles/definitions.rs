@@ -219,9 +219,19 @@ pub fn get_profile(game_id: &str) -> Option<GameProfile> {
 
 /// Get a profile, falling back to "generic" if not found.
 pub fn get_profile_or_default(game_id: &str) -> GameProfile {
-    get_profile(game_id).unwrap_or_else(|| {
-        get_profile("generic").expect("generic profile must exist")
-    })
+    get_profile(game_id)
+        .or_else(|| get_profile("generic"))
+        .unwrap_or_else(|| GameProfile {
+            id: "generic".to_string(),
+            name: "Gaming Coach".to_string(),
+            genre: "General".to_string(),
+            description: "General-purpose gaming coach for any game".to_string(),
+            screenshot_count: 5,
+            max_response_tokens: 200,
+            system_prompt_template: "You are GamerClone, an expert AI gaming coach. \
+                Give specific, actionable advice in 1-3 short sentences. {rag_context}"
+                .to_string(),
+        })
 }
 
 #[cfg(test)]
@@ -238,8 +248,14 @@ mod tests {
     fn test_expected_game_ids() {
         let ids: HashSet<String> = all_profiles().into_iter().map(|p| p.id).collect();
         let expected = [
-            "minecraft", "valorant", "cs2", "fortnite",
-            "league", "elden_ring", "rocket_league", "generic",
+            "minecraft",
+            "valorant",
+            "cs2",
+            "fortnite",
+            "league",
+            "elden_ring",
+            "rocket_league",
+            "generic",
         ];
         for id in &expected {
             assert!(ids.contains(*id), "Missing profile: {id}");

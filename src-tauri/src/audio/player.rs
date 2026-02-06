@@ -1,5 +1,6 @@
 use std::io::Cursor;
-use std::sync::Mutex;
+
+use parking_lot::Mutex;
 
 use rodio::{Decoder, OutputStream, OutputStreamHandle, Sink};
 
@@ -25,6 +26,12 @@ pub struct AudioPlayer {
     output: Mutex<Option<OutputState>>,
 }
 
+impl Default for AudioPlayer {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl AudioPlayer {
     pub fn new() -> Self {
         Self {
@@ -34,7 +41,7 @@ impl AudioPlayer {
 
     pub fn init_stream(&self, device_name: &str) -> Result<(), String> {
         // Drop existing output
-        *self.output.lock().unwrap() = None;
+        *self.output.lock() = None;
 
         let device = find_output_device_by_name(device_name)
             .ok_or_else(|| "No output device found".to_string())?;
@@ -42,23 +49,26 @@ impl AudioPlayer {
         let (_stream, handle) = OutputStream::try_from_device(&device)
             .map_err(|e| format!("Failed to open output stream: {e}"))?;
 
-        *self.output.lock().unwrap() = Some(OutputState { _stream, handle });
+        *self.output.lock() = Some(OutputState { _stream, handle });
 
-        let device_display = if device_name.is_empty() { "default" } else { device_name };
+        let device_display = if device_name.is_empty() {
+            "default"
+        } else {
+            device_name
+        };
         tracing::info!("Audio output initialized: {device_display}");
 
         Ok(())
     }
 
     pub fn play_bytes(&self, bytes: Vec<u8>) -> Result<(), String> {
-        let guard = self.output.lock().unwrap();
+        let guard = self.output.lock();
         let output = guard
             .as_ref()
             .ok_or_else(|| "Audio output not initialized".to_string())?;
 
         let cursor = Cursor::new(bytes);
-        let source = Decoder::new(cursor)
-            .map_err(|e| format!("Failed to decode audio: {e}"))?;
+        let source = Decoder::new(cursor).map_err(|e| format!("Failed to decode audio: {e}"))?;
 
         let sink = Sink::try_new(&output.handle)
             .map_err(|e| format!("Failed to create audio sink: {e}"))?;
@@ -84,6 +94,6 @@ impl AudioPlayer {
     }
 
     pub fn is_initialized(&self) -> bool {
-        self.output.lock().unwrap().is_some()
+        self.output.lock().is_some()
     }
 }

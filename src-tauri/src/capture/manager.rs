@@ -1,6 +1,8 @@
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 use std::time::Instant;
+
+use parking_lot::Mutex;
 
 use image::imageops::FilterType;
 use image::RgbaImage;
@@ -177,9 +179,7 @@ impl CaptureManager {
             return Err("Invalid window handle".to_string());
         }
 
-        let title = window
-            .title()
-            .unwrap_or_else(|_| "Unknown".to_string());
+        let title = window.title().unwrap_or_else(|_| "Unknown".to_string());
         tracing::info!("Starting capture for window: {title} (hwnd: {hwnd})");
 
         self.stop_flag.store(false, Ordering::Relaxed);
@@ -206,8 +206,8 @@ impl CaptureManager {
         let control = CaptureHandler::start_free_threaded(settings)
             .map_err(|e| format!("Failed to start capture: {e}"))?;
 
-        *self.capture_control.lock().unwrap() = Some(control);
-        *self.selected_hwnd.lock().unwrap() = Some(hwnd);
+        *self.capture_control.lock() = Some(control);
+        *self.selected_hwnd.lock() = Some(hwnd);
         self.is_capturing.store(true, Ordering::Relaxed);
 
         tracing::info!("Capture started successfully");
@@ -222,7 +222,7 @@ impl CaptureManager {
         // Signal the capture handler to stop
         self.stop_flag.store(true, Ordering::Relaxed);
 
-        let control = self.capture_control.lock().unwrap().take();
+        let control = self.capture_control.lock().take();
         if let Some(control) = control {
             if !control.is_finished() {
                 tracing::info!("Stopping capture...");
@@ -248,7 +248,7 @@ impl CaptureManager {
     }
 
     pub fn selected_hwnd(&self) -> Option<isize> {
-        *self.selected_hwnd.lock().unwrap()
+        *self.selected_hwnd.lock()
     }
 }
 

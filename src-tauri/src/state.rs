@@ -1,5 +1,7 @@
+use std::sync::Arc;
+
+use parking_lot::Mutex;
 use serde::{Deserialize, Serialize};
-use std::sync::{Arc, Mutex};
 
 use crate::audio::{AudioPlayer, AudioRecorder};
 use crate::capture::CaptureManager;
@@ -29,7 +31,7 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub fn new() -> Self {
+    pub fn new() -> Result<Self, String> {
         let buffer_capacity: usize = std::env::var("CAPTURE_MAX_FRAMES")
             .ok()
             .and_then(|v| v.parse().ok())
@@ -47,7 +49,8 @@ impl AppState {
 
         // Initialize RAG database
         let rag_db = Arc::new(
-            RagDatabase::new("./data/rag.db").expect("Failed to initialize RAG database"),
+            RagDatabase::new("./data/rag.db")
+                .map_err(|e| format!("Failed to init RAG database: {e}"))?,
         );
 
         // Seed knowledge base on first launch
@@ -76,17 +79,21 @@ impl AppState {
             tracing::info!("Knowledge base already seeded");
         }
 
-        let service = Arc::new(LocalCoachingService::new(rag_db));
+        let service = Arc::new(LocalCoachingService::new(rag_db).map_err(|e| e.to_string())?);
         let voice_pipeline = VoicePipeline::new(service);
 
-        Self {
+        Ok(Self {
             status: Mutex::new(AppStatus::Ready),
-            capture_manager: CaptureManager::new(buffer_capacity, capture_interval_ms, jpeg_quality),
+            capture_manager: CaptureManager::new(
+                buffer_capacity,
+                capture_interval_ms,
+                jpeg_quality,
+            ),
             audio_recorder: AudioRecorder::new(),
             audio_player: AudioPlayer::new(),
             hotkey_manager: HotkeyManager::new(),
             voice_pipeline,
             active_game_id: Mutex::new("generic".to_string()),
-        }
+        })
     }
 }

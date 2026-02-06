@@ -63,7 +63,9 @@ fn encode_wav(samples: &[i16]) -> Vec<u8> {
 
     let mut writer = hound::WavWriter::new(cursor, spec).expect("WAV writer creation failed");
     for &sample in samples {
-        writer.write_sample(sample).expect("WAV sample write failed");
+        writer
+            .write_sample(sample)
+            .expect("WAV sample write failed");
     }
     writer.finalize().expect("WAV finalize failed");
 
