@@ -3,16 +3,21 @@
 :root {
   --gc-bg: #0f0f13;
   --gc-surface: #1a1a24;
-  --gc-surface-hover: #24243a;
+  --gc-surface-hover: #1e2a38;
   --gc-border: #2a2a3e;
-  --gc-primary: #6d28d9;
-  --gc-primary-hover: #7c3aed;
-  --gc-text: #e2e2f0;
+  --gc-primary: #7dd3fc;
+  --gc-primary-hover: #38bdf8;
+  --gc-text: #e2eef5;
   --gc-text-muted: #8888a0;
   --gc-success: #22c55e;
   --gc-warning: #eab308;
   --gc-info: #3b82f6;
   --gc-error: #ef4444;
+}
+
+* {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: 150ms;
 }
 
 body {

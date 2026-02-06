@@ -1,9 +1,14 @@
 import { useEffect } from "react";
-import { Home, Settings, Monitor, Gamepad2, Mic } from "lucide-react";
+import { Home, Settings, Gamepad2 } from "lucide-react";
 import { useAppStore } from "./stores/appStore";
-import { greet } from "./lib/tauri";
+import { greet, getAllSettings } from "./lib/tauri";
 import { StatusLog } from "./components/StatusLog";
 import { SettingsPanel } from "./components/SettingsPanel";
+import { WindowPicker } from "./components/WindowPicker";
+import { GameSelector } from "./components/GameSelector";
+import { PTTIndicator } from "./components/PTTIndicator";
+import { SetupWizard } from "./components/SetupWizard";
+import { usePTT } from "./hooks/usePTT";
 
 const STATUS_COLORS: Record<string, string> = {
   ready: "bg-[var(--gc-success)]",
@@ -22,14 +27,32 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 function App() {
-  const { activePanel, setActivePanel, status, addLogEntry } = useAppStore();
+  const { activePanel, setActivePanel, status, isFirstLaunch, setIsFirstLaunch, addLogEntry } =
+    useAppStore();
+
+  // Initialize PTT event subscriptions at app level
+  usePTT();
 
   useEffect(() => {
+    // Check if setup is complete
+    getAllSettings()
+      .then((settings) => {
+        if (settings.setupComplete === true) {
+          setIsFirstLaunch(false);
+        }
+      })
+      .catch(() => {});
+
     // Test IPC on startup
     greet("Coach")
       .then((msg) => addLogEntry("success", msg))
       .catch((err) => addLogEntry("error", `IPC failed: ${err}`));
   }, []);
+
+  // Show setup wizard on first launch
+  if (isFirstLaunch) {
+    return <SetupWizard />;
+  }
 
   return (
     <div className="flex flex-col h-screen bg-[var(--gc-bg)]">
@@ -56,20 +79,22 @@ function App() {
           {/* Tab buttons */}
           <div className="flex gap-1 ml-2">
             <button
+              title="Home"
               onClick={() => setActivePanel("home")}
               className={`p-1.5 rounded transition-colors ${
                 activePanel === "home"
-                  ? "bg-[var(--gc-primary)] text-white"
+                  ? "bg-[var(--gc-primary)] text-[var(--gc-bg)]"
                   : "text-[var(--gc-text-muted)] hover:bg-[var(--gc-surface-hover)]"
               }`}
             >
               <Home className="w-4 h-4" />
             </button>
             <button
+              title="Settings"
               onClick={() => setActivePanel("settings")}
               className={`p-1.5 rounded transition-colors ${
                 activePanel === "settings"
-                  ? "bg-[var(--gc-primary)] text-white"
+                  ? "bg-[var(--gc-primary)] text-[var(--gc-bg)]"
                   : "text-[var(--gc-text-muted)] hover:bg-[var(--gc-surface-hover)]"
               }`}
             >
@@ -90,25 +115,9 @@ function App() {
 function HomePanel() {
   return (
     <div className="flex flex-col gap-3">
-      {/* Placeholder cards */}
-      <Card
-        icon={<Monitor className="w-4 h-4" />}
-        title="Game Window"
-        description="Select a game window to capture"
-        status="Not selected"
-      />
-      <Card
-        icon={<Gamepad2 className="w-4 h-4" />}
-        title="Game Profile"
-        description="Choose your game for tailored coaching"
-        status="Not selected"
-      />
-      <Card
-        icon={<Mic className="w-4 h-4" />}
-        title="Push-to-Talk"
-        description="Press your hotkey to ask a question"
-        status="Not configured"
-      />
+      <WindowPicker />
+      <GameSelector />
+      <PTTIndicator />
 
       {/* Activity Log */}
       <div className="mt-1">
@@ -117,33 +126,6 @@ function HomePanel() {
         </h2>
         <StatusLog />
       </div>
-    </div>
-  );
-}
-
-function Card({
-  icon,
-  title,
-  description,
-  status,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  status: string;
-}) {
-  return (
-    <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--gc-surface)] border border-[var(--gc-border)] hover:border-[var(--gc-primary)] transition-colors cursor-default">
-      <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--gc-surface-hover)] text-[var(--gc-primary)]">
-        {icon}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="text-sm font-medium text-[var(--gc-text)]">{title}</div>
-        <div className="text-xs text-[var(--gc-text-muted)]">{description}</div>
-      </div>
-      <span className="text-xs text-[var(--gc-text-muted)] whitespace-nowrap">
-        {status}
-      </span>
     </div>
   );
 }

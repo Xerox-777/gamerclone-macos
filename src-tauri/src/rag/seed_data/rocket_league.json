@@ -1,0 +1,105 @@
+{
+  "game_id": "rocket_league",
+  "entries": [
+    {
+      "category": "mechanics",
+      "title": "Aerial Basics",
+      "content": "Jump, tilt back, then boost to fly toward the ball. Double jump for faster height. Start with low aerials and work up. Practice in free play by hitting the ball up and following it."
+    },
+    {
+      "category": "mechanics",
+      "title": "Half Flip",
+      "content": "Backflip, then immediately cancel the flip by pulling stick forward, then air roll to land on your wheels. Essential for quickly turning around. Practice until it's muscle memory."
+    },
+    {
+      "category": "strategy",
+      "title": "Rotation Basics",
+      "content": "Rotate back post, not near post. After attacking, rotate out to let your teammate in. Never double commit with your teammate on the ball. The player furthest back stays in goal."
+    },
+    {
+      "category": "strategy",
+      "title": "Boost Management",
+      "content": "Collect small pads (12 boost each) instead of always going for full 100 pads. You can play effectively with 30-40 boost. Don't leave your position to grab a corner boost — pads are safer."
+    },
+    {
+      "category": "combat",
+      "title": "Kickoff Strategy",
+      "content": "Diagonal flip into the ball for speed. Aim for the center of the ball. The player closest to the ball goes for kickoff. Second player grabs boost or cheats up. Communicate who goes."
+    },
+    {
+      "category": "mechanics",
+      "title": "Dribbling",
+      "content": "Balance the ball on your car's roof by matching its speed. Use small adjustments — don't boost hard. Practice in free play. Flick by jumping and dodging forward to launch the ball."
+    },
+    {
+      "category": "strategy",
+      "title": "Shadow Defense",
+      "content": "When the opponent has the ball, drive in front of them in the same direction. Match their speed and wait for a mistake or bad touch. Don't challenge until you have a good angle."
+    },
+    {
+      "category": "mechanics",
+      "title": "Power Shots",
+      "content": "Hit the ball with the nose corner of your car for maximum power. Dodge into the ball at contact for extra force. The ball moves fastest when hit from directly behind it."
+    },
+    {
+      "category": "strategy",
+      "title": "2v2 Positioning",
+      "content": "One player pressures while the other covers. Never both go for the ball. When your teammate has it, position for a pass or stay back. Create space by spreading out."
+    },
+    {
+      "category": "combat",
+      "title": "50/50 Challenges",
+      "content": "In a 50/50 (both cars hit the ball simultaneously), match the opponent's speed and angle. Dodge into the ball at the moment of contact. The player who hits the ball more centered usually wins."
+    },
+    {
+      "category": "mechanics",
+      "title": "Wall Play",
+      "content": "Drive up walls to hit balls near the ceiling. Jump off the wall for wall aerials. Air roll to orient your car after leaving the wall. Practice wall-to-aerial transitions in free play."
+    },
+    {
+      "category": "strategy",
+      "title": "Passing Plays",
+      "content": "Center the ball by hitting it across the face of the goal. A pass doesn't need to be directly to a teammate — hitting it into open space works. Infield passes are harder to defend than crosses."
+    },
+    {
+      "category": "mechanics",
+      "title": "Fast Aerials",
+      "content": "Jump, lean back, boost simultaneously, then jump again while still boosting. This is much faster than single-jump aerials. Essential for Diamond rank and above. Practice until it's automatic."
+    },
+    {
+      "category": "strategy",
+      "title": "Reading the Play",
+      "content": "Watch where opponents are, not just the ball. Predict where the ball will go based on who's hitting it. Position yourself where the ball will be, not where it is now. Use ball cam and car cam."
+    },
+    {
+      "category": "combat",
+      "title": "Demos and Bumps",
+      "content": "Demoing the goalie before a shot creates open nets. Bump opponents off the ball to create turnovers. Demos require supersonic speed. Don't demo-hunt — do it when it's tactically useful."
+    },
+    {
+      "category": "mechanics",
+      "title": "Recovery",
+      "content": "Always land on your wheels using air roll. Wavedash by air dodging into the ground at an angle for speed. Powerslide on landing to maintain momentum. Fast recovery separates good from great players."
+    },
+    {
+      "category": "strategy",
+      "title": "3v3 Rotation",
+      "content": "Three roles: first man (attacker), second man (support), third man (defense). Rotate through all three. Never cut rotation. When you see both teammates ahead of you, stay back."
+    },
+    {
+      "category": "combat",
+      "title": "Backboard Defense",
+      "content": "Position on the back wall to clear balls that go above the goal. Drive up the wall and clear with a strong hit to the corner. Don't sit in net when the ball is high above — go to the wall."
+    },
+    {
+      "category": "mechanics",
+      "title": "Air Roll Shots",
+      "content": "Air roll to adjust your car angle for better ball contact during aerials. Directional air roll (left or right) gives more control. Start with basic air roll before learning directional."
+    },
+    {
+      "category": "strategy",
+      "title": "Training Routine",
+      "content": "Spend 15 minutes in free play before ranked. Practice: wall shots, aerials, dribbling, and recovery. Use custom training packs for specific skills. Focus on consistency over flashy mechanics."
+    }
+  ]
+}

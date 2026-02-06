@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { useAppStore } from "../stores/appStore";
 
 const LEVEL_COLORS: Record<string, string> = {
@@ -16,6 +17,11 @@ const LEVEL_LABELS: Record<string, string> = {
 
 export function StatusLog() {
   const { statusLog, clearLog } = useAppStore();
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [statusLog.length]);
 
   if (statusLog.length === 0) {
     return (
@@ -38,7 +44,7 @@ export function StatusLog() {
           Clear
         </button>
       </div>
-      <div className="max-h-48 overflow-y-auto">
+      <div className="max-h-48 overflow-y-auto" role="log" aria-live="polite">
         {statusLog.map((entry) => (
           <div
             key={entry.id}
@@ -57,6 +63,7 @@ export function StatusLog() {
             </span>
           </div>
         ))}
+        <div ref={bottomRef} />
       </div>
     </div>
   );

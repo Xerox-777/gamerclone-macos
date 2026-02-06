@@ -1,1 +1,5 @@
-// Phase 5: RAG knowledge base (SQLite + fastembed + sqlite-vec)
+mod database;
+mod embeddings;
+
+pub use database::RagDatabase;
+pub use embeddings::EmbeddingEngine;

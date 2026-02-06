@@ -1,4 +1,9 @@
+pub mod audio;
+pub mod capture;
+pub mod hotkeys;
+pub mod profiles;
 pub mod settings;
+pub mod voice;
 
 /// Simple IPC test command
 #[tauri::command]

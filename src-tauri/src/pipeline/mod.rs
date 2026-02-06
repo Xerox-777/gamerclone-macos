@@ -1,1 +1,2 @@
-// Phase 4: Voice pipeline orchestrator (PTT → STT → Vision → TTS)
+mod orchestrator;
+pub use orchestrator::{VoicePipeline, VoiceQueryResult};

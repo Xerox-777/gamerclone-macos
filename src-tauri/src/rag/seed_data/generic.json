@@ -1,0 +1,80 @@
+{
+  "game_id": "generic",
+  "entries": [
+    {
+      "category": "performance",
+      "title": "FPS Optimization",
+      "content": "Lower shadows and anti-aliasing first — they impact FPS the most with least visual loss. Keep resolution scale at 100%. Use fullscreen mode, not borderless. Close background apps."
+    },
+    {
+      "category": "performance",
+      "title": "Input Lag Reduction",
+      "content": "Enable V-Sync off for lowest input lag. Use a wired mouse and keyboard. Set monitor to highest refresh rate. Disable Windows Game Mode if it causes issues. Use raw mouse input in games."
+    },
+    {
+      "category": "strategy",
+      "title": "Warm-Up Routine",
+      "content": "Spend 10-15 minutes warming up before competitive play. Practice aim in training modes or aim trainers. Start with casual games before ranked. Warm up your hands and reactions."
+    },
+    {
+      "category": "strategy",
+      "title": "Tilt Management",
+      "content": "Take a 5-minute break after 2 consecutive losses. Stand up, stretch, drink water. Tilt makes you play worse and compound losses. Set a loss limit per session and stop when you reach it."
+    },
+    {
+      "category": "mechanics",
+      "title": "Mouse Sensitivity",
+      "content": "Lower sensitivity improves accuracy in most games. A full 180-degree turn should take roughly half your mousepad. Find a sensitivity and stick with it across games. Use a large mousepad."
+    },
+    {
+      "category": "strategy",
+      "title": "VOD Review",
+      "content": "Record your gameplay and watch it back. Focus on deaths — what caused them and how to avoid them. Note positioning mistakes and decision-making errors. Watch high-rank players for comparison."
+    },
+    {
+      "category": "mechanics",
+      "title": "Keybind Optimization",
+      "content": "Rebind keys so critical actions are on easy-to-reach keys. Use side mouse buttons for common abilities. Keep movement on WASD and actions within finger reach. Avoid stretching for keys."
+    },
+    {
+      "category": "performance",
+      "title": "Network Optimization",
+      "content": "Use a wired ethernet connection over WiFi. Close bandwidth-heavy apps while gaming. Select servers closest to your region. 20-50ms ping is good, under 20ms is ideal."
+    },
+    {
+      "category": "strategy",
+      "title": "Game Sense Development",
+      "content": "Game sense is reading the game state and predicting what happens next. Track enemy positions, cooldowns, and resources. Think about what the enemy wants to do and counter it before it happens."
+    },
+    {
+      "category": "mechanics",
+      "title": "Aim Training",
+      "content": "Use aim trainers like Aim Lab or Kovaak's for 15 minutes daily. Focus on tracking and flicking separately. Don't death-grip your mouse — stay relaxed. Improvement takes weeks, not hours."
+    },
+    {
+      "category": "strategy",
+      "title": "Communication Tips",
+      "content": "Make short, specific callouts. Give info, not instructions — let teammates decide. Stay positive; flaming teammates makes everyone play worse. Mute toxic players immediately."
+    },
+    {
+      "category": "performance",
+      "title": "Monitor Settings",
+      "content": "Use a gaming monitor with 144Hz+ refresh rate if possible. Lower response time to 1ms. Adjust brightness so you can see dark areas. Disable motion blur in all games."
+    },
+    {
+      "category": "strategy",
+      "title": "Learning From Pros",
+      "content": "Watch pro players' streams and tournaments. Focus on their positioning and decision-making, not just their aim. Copy their settings and configurations. Study one player who plays your role."
+    },
+    {
+      "category": "mechanics",
+      "title": "Audio Setup",
+      "content": "Use headphones for spatial audio. Enable surround sound or HRTF in games that support it. Game audio gives crucial positional information. Turn down music volume and increase effects volume."
+    },
+    {
+      "category": "strategy",
+      "title": "Focus on One Game",
+      "content": "Improve faster by focusing on one game at a time. Master fundamentals before advanced techniques. Play ranked consistently — casual doesn't develop competitive skills as efficiently."
+    }
+  ]
+}

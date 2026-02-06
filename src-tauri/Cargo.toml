@@ -21,6 +21,35 @@ dotenv = "0.15"
 anyhow = "1"
 thiserror = "2"
 
+# Screen capture
+windows-capture = "2.0.0-alpha.7"
+
+# Audio (Phase 3)
+cpal = "0.15"
+rodio = "0.19"
+hound = "3.5"
+rubato = "0.15"
+
+# Global hotkeys (Phase 3)
+rdev = "0.5"
+
+# Image processing
+turbojpeg = "1"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png"] }
+
+# AI (Phase 4)
+async-openai = "0.27"
+base64 = "0.22"
+
+# RAG (Phase 5)
+rusqlite = { version = "0.32", features = ["bundled"] }
+sqlite-vec = "0.1"
+fastembed = "4"
+zerocopy = { version = "0.7", features = ["derive"] }
+
+[dev-dependencies]
+tempfile = "3"
+
 [features]
 default = ["custom-protocol", "local"]
 custom-protocol = ["tauri/custom-protocol"]

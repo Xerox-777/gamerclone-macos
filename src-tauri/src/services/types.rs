@@ -25,6 +25,8 @@ pub struct GameProfile {
     pub genre: String,
     pub description: String,
     pub system_prompt_template: String,
+    pub screenshot_count: usize,
+    pub max_response_tokens: u16,
 }
 
 #[derive(Debug, thiserror::Error)]

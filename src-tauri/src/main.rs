@@ -7,12 +7,14 @@ use tauri::{
     tray::TrayIconBuilder,
     Manager,
 };
+use tauri_plugin_store::StoreExt;
 use tracing_subscriber::EnvFilter;
 
 fn main() {
-    // Load .env file first (ok if missing) — must run before tracing
-    // so RUST_LOG from .env is respected
-    dotenv::dotenv().ok();
+    // Load .env file — try CWD first, then parent (cargo tauri dev runs from src-tauri/)
+    if dotenv::dotenv().is_err() {
+        let _ = dotenv::from_path("../.env");
+    }
 
     // Initialize structured logging
     tracing_subscriber::fmt()
@@ -68,6 +70,35 @@ fn main() {
                 })
                 .build(app)?;
 
+            // Initialize audio streams with default devices (non-fatal)
+            {
+                let state = app.state::<gamerclone::state::AppState>();
+                if let Err(e) = state.audio_recorder.init_stream("") {
+                    tracing::warn!("Failed to init default audio input: {e}");
+                }
+                if let Err(e) = state.audio_player.init_stream("") {
+                    tracing::warn!("Failed to init default audio output: {e}");
+                }
+
+                // Restore saved active game profile from store
+                match app.handle().store("settings.json") {
+                    Ok(store) => {
+                        if let Some(val) = store.get("activeGameId") {
+                            if let Some(game_id) = val.as_str() {
+                                if gamerclone::profiles::get_profile(game_id).is_some() {
+                                    *state.active_game_id.lock().unwrap() = game_id.to_string();
+                                    tracing::info!("Restored active game profile: {game_id}");
+                                }
+                            }
+                        }
+                    }
+                    Err(e) => tracing::debug!("No settings store yet: {e}"),
+                }
+
+                // Start hotkey listener
+                state.hotkey_manager.start(app.handle().clone());
+            }
+
             tracing::info!("GamerClone initialized successfully");
             Ok(())
         })
@@ -75,6 +106,24 @@ fn main() {
             commands::greet,
             commands::settings::get_all_settings,
             commands::settings::save_setting,
+            commands::capture::list_windows,
+            commands::capture::select_window,
+            commands::capture::start_capture,
+            commands::capture::stop_capture,
+            commands::capture::get_capture_status,
+            commands::audio::list_audio_devices,
+            commands::audio::set_input_device,
+            commands::audio::set_output_device,
+            commands::audio::test_microphone,
+            commands::audio::get_audio_status,
+            commands::hotkeys::get_ptt_key,
+            commands::hotkeys::set_ptt_key,
+            commands::hotkeys::get_ptt_status,
+            commands::voice::start_recording,
+            commands::voice::process_voice_query,
+            commands::profiles::list_game_profiles,
+            commands::profiles::get_active_profile,
+            commands::profiles::set_active_profile,
         ])
         .run(tauri::generate_context!())
         .expect("error while running GamerClone");

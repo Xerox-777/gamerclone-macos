@@ -4,6 +4,8 @@ export interface GameProfile {
   genre: string;
   description: string;
   systemPromptTemplate: string;
+  screenshotCount: number;
+  maxResponseTokens: number;
 }
 
 export interface WindowInfo {
@@ -18,6 +20,44 @@ export type AppStatus =
   | "listening"
   | "processing"
   | "error";
+
+export interface CaptureStatus {
+  isCapturing: boolean;
+  frameCount: number;
+}
+
+export interface AudioDeviceInfo {
+  name: string;
+  isDefault: boolean;
+}
+
+export interface AudioStatus {
+  inputStreamActive: boolean;
+  outputInitialized: boolean;
+  isRecording: boolean;
+}
+
+export interface VoiceQueryResult {
+  transcript: string;
+  response: string;
+  latencyMs: number;
+}
+
+export interface PipelineStageEvent {
+  stage: "transcribing" | "searching" | "analyzing" | "speaking";
+  message: string;
+}
+
+export interface PipelineCompleteEvent {
+  transcript: string;
+  response: string;
+  latencyMs: number;
+}
+
+export interface PipelineErrorEvent {
+  stage: string;
+  message: string;
+}
 
 export type ActivePanel = "home" | "settings";
 

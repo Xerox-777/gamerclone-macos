@@ -19,8 +19,18 @@ src-tauri/gen/
 .DS_Store
 Thumbs.db
 
+# Claude Code local config
+.claude/
+
+# Windows null device artifact
+nul
+
 # Temp files from icon generation
 app-icon.svg
 src-tauri/icons/icon-16.png
 src-tauri/icons/icon-48.png
 src-tauri/icons/icon-256.png
+
+# Runtime data (generated on first launch)
+src-tauri/.fastembed_cache/
+src-tauri/data/

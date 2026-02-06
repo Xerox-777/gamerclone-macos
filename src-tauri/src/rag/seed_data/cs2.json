@@ -1,0 +1,105 @@
+{
+  "game_id": "cs2",
+  "entries": [
+    {
+      "category": "mechanics",
+      "title": "Recoil Control",
+      "content": "AK-47 pulls up then right then left. M4A4 pulls up then slightly right. Practice spray patterns in deathmatch. For long range, burst fire 2-3 bullets with recoil reset between bursts."
+    },
+    {
+      "category": "mechanics",
+      "title": "Counter-Strafing",
+      "content": "Tap the opposite movement key before shooting to instantly stop. In CS2, counter-strafing is slightly more forgiving than CS:GO but still essential for accurate first shots."
+    },
+    {
+      "category": "strategy",
+      "title": "Economy Basics",
+      "content": "Full buy at $4100+. Force buy as a team at $2600-3000. Full save at $1400 or less. Buy armor every gun round. Loss bonus increases each consecutive round lost, maxing at $3400."
+    },
+    {
+      "category": "strategy",
+      "title": "Smoke Lineups",
+      "content": "Learn 2-3 smoke lineups per map for key choke points. Smokes are crucial for blocking vision and creating safe passages. In CS2, smokes are volumetric and can be partially cleared by HE grenades."
+    },
+    {
+      "category": "combat",
+      "title": "Peeking Fundamentals",
+      "content": "Shoulder peek to bait AWP shots. Wide peek when you have info on enemy position. Ferrari peek (fast wide swing) against players holding tight angles. Always peek one angle at a time."
+    },
+    {
+      "category": "mechanics",
+      "title": "AWP Positioning",
+      "content": "Hold angles from unexpected positions. After getting a kill, reposition immediately. Use cover to quick-scope peek. Never repeek the same angle twice — you'll be pre-aimed."
+    },
+    {
+      "category": "strategy",
+      "title": "CT Rotations",
+      "content": "Don't rotate on sound alone — wait for visual confirmation. One player should always anchor each site. Rotate through spawn, not through open areas. Late rotations lose rounds."
+    },
+    {
+      "category": "combat",
+      "title": "Grenade Usage",
+      "content": "HE grenades deal up to 98 damage. Flash teammates in by bouncing off walls. Molotovs deny areas for 7 seconds and cost only $400 CT side. Pop flashes are more effective than long throws."
+    },
+    {
+      "category": "strategy",
+      "title": "T-Side Executes",
+      "content": "A proper site execute uses 3-4 utility pieces: smokes to block rotations, flashes for entry, molotov to clear common spots. Execute together — staggered pushes get picked apart."
+    },
+    {
+      "category": "mechanics",
+      "title": "Movement Mechanics",
+      "content": "Bunny hopping preserves momentum in CS2. Air strafing lets you move faster around corners. Crouch-jumping lets you reach higher ledges. Walking is silent and hides your position on radar."
+    },
+    {
+      "category": "strategy",
+      "title": "Map Control T-Side",
+      "content": "Take map control in the early round to open up options. Control mid and one area before deciding where to execute. Use utility to push back aggressive CTs from forward positions."
+    },
+    {
+      "category": "combat",
+      "title": "Crosshair Placement",
+      "content": "Pre-aim head level at all common angles. Use environment features like boxes and doorframes as height references. Good crosshair placement means less aim adjustment needed when enemies appear."
+    },
+    {
+      "category": "strategy",
+      "title": "Anti-Eco Play",
+      "content": "Against eco rounds, play range and avoid close engagements where pistols excel. Stack or hold tight chokes with rifles. Don't push aggressively — make them come to you at disadvantaged range."
+    },
+    {
+      "category": "mechanics",
+      "title": "Pistol Round",
+      "content": "USP-S is better for long range headshots, Glock is better up close with burst fire. Buy armor on pistol round as CT. On T, buy a smoke or flash. Aim for heads — pistol round is all about accuracy."
+    },
+    {
+      "category": "strategy",
+      "title": "Post-Plant CS2",
+      "content": "Plant for your team's position, not default. Play crossfires on the bomb. Molotov the defuser. Count enemies and play time. The bomb takes 10 seconds to defuse without a kit, 5 with a kit."
+    },
+    {
+      "category": "combat",
+      "title": "1vX Clutch Tips",
+      "content": "Isolate fights to 1v1s. Use sound to track enemy positions. Play time — don't rush. Use utility to delay pushes. On T side, make them come to you. On CT, be unpredictable with your retake path."
+    },
+    {
+      "category": "mechanics",
+      "title": "Weapon Choice By Range",
+      "content": "Close range: MAC-10, MP9, shotguns. Medium: AK-47, M4A4, Galil. Long range: AWP, AK-47 (tap fire), AUG (scoped). Don't use SMGs at long range — switch to pistol if needed."
+    },
+    {
+      "category": "strategy",
+      "title": "Communication Calls",
+      "content": "Call enemy count, position, and HP. Short calls: 'One short, lit 60' beats 'There's a guy over there.' Call utility usage: 'AWP mid,' 'Flashed long.' Don't talk during clutch situations."
+    },
+    {
+      "category": "combat",
+      "title": "Trading System",
+      "content": "The second player should always be ready to trade. Follow 3-5 meters behind the entry fragger. If your teammate dies, you should already be peeking to get the refrag within 1-2 seconds."
+    },
+    {
+      "category": "mechanics",
+      "title": "Sub-Tick System",
+      "content": "CS2 uses sub-tick instead of tick rate. Your actions are registered at the exact moment they happen, not on the next tick. This means peeking and shooting is more responsive than in CS:GO."
+    }
+  ]
+}

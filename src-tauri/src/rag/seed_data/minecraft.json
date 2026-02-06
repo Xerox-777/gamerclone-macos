@@ -1,0 +1,105 @@
+{
+  "game_id": "minecraft",
+  "entries": [
+    {
+      "category": "mechanics",
+      "title": "Diamond Mining Depth",
+      "content": "Diamonds spawn most frequently at Y-level -59 in Minecraft 1.18+. Strip mining at this level with a branch every 2 blocks is the most efficient method."
+    },
+    {
+      "category": "mechanics",
+      "title": "Nether Portal Linking",
+      "content": "Nether portals link at an 8:1 ratio. Build a portal in the Nether at X/8 and Z/8 of your Overworld coordinates to create a fast travel network."
+    },
+    {
+      "category": "combat",
+      "title": "Shield Timing",
+      "content": "Raise your shield just before a hit lands. Shields block 100% of melee damage and most projectiles. Axes can disable shields for 5 seconds."
+    },
+    {
+      "category": "combat",
+      "title": "Enderman Fighting",
+      "content": "Build a 2-block-high shelter and attack Endermen from inside. They cannot enter and will take damage. Alternatively, wear a carved pumpkin to prevent aggro."
+    },
+    {
+      "category": "mechanics",
+      "title": "Enchanting Optimization",
+      "content": "Surround an enchanting table with 15 bookshelves (one block away, one block high) for maximum level 30 enchantments. Leave one block open for access."
+    },
+    {
+      "category": "strategy",
+      "title": "Iron Farm Basics",
+      "content": "Iron golems spawn when 3+ villagers with beds are scared by a zombie. Build a simple iron farm by trapping a zombie near villagers with beds above a kill chamber."
+    },
+    {
+      "category": "survival",
+      "title": "First Night Survival",
+      "content": "Punch trees for wood, craft a wooden pickaxe, mine stone, craft stone tools. Get at least 3 wool from sheep for a bed before nightfall. Place bed and sleep to skip night."
+    },
+    {
+      "category": "combat",
+      "title": "Wither Strategy",
+      "content": "Spawn the Wither underground in a long 1x2 tunnel. The bedrock ceiling in the Nether is ideal. Use Smite V sword and strength potions. Keep milk buckets for wither effect."
+    },
+    {
+      "category": "mechanics",
+      "title": "Redstone Basics",
+      "content": "Redstone signal travels 15 blocks. Use repeaters to extend range. Comparators read container fullness. Observers detect block changes. Pistons push up to 12 blocks."
+    },
+    {
+      "category": "strategy",
+      "title": "XP Farming",
+      "content": "The fastest XP farm is an Enderman farm on the End main island. Use a 43-block-high platform with a 2-block-high gap. Endermen teleport up and fall to 1 HP for easy kills."
+    },
+    {
+      "category": "survival",
+      "title": "Food Tier List",
+      "content": "Golden carrots give the best saturation. Steak and cooked porkchop give 8 hunger points. Suspicious stew can give saturation effect. Bread is easy early-game food from wheat."
+    },
+    {
+      "category": "combat",
+      "title": "Ender Dragon Fight",
+      "content": "Destroy End crystals on obsidian pillars first (bow or climb). Use beds to deal massive damage when the dragon perches on the fountain. Bring slow falling potions."
+    },
+    {
+      "category": "mechanics",
+      "title": "Villager Trading",
+      "content": "Cure zombie villagers for massive discounts. Lock trades by having villagers use their workstation. Librarians can sell any enchanted book — keep breaking and replacing lecterns."
+    },
+    {
+      "category": "strategy",
+      "title": "Elytra Movement",
+      "content": "Launch with firework rockets for speed boost. Aim slightly downward to gain speed, then pull up to glide. Optimal angle is about 15 degrees below horizontal for distance."
+    },
+    {
+      "category": "survival",
+      "title": "Mining Safety",
+      "content": "Always carry a water bucket when mining. It extinguishes fire, creates obsidian over lava, and breaks falls. Never dig straight down — dig a 2x1 staircase instead."
+    },
+    {
+      "category": "mechanics",
+      "title": "Mob Spawning Rules",
+      "content": "Hostile mobs spawn in light level 0 on solid blocks. They spawn 24-128 blocks from the player. Light up caves and surfaces within 128 blocks of your base to prevent spawns."
+    },
+    {
+      "category": "strategy",
+      "title": "Nether Fortress Finding",
+      "content": "Nether fortresses generate in strips along the Z axis. Travel east or west (X axis) to find them. They contain blaze spawners needed for Eyes of Ender."
+    },
+    {
+      "category": "mechanics",
+      "title": "Beacon Powers",
+      "content": "Beacons need a pyramid of iron/gold/diamond/emerald/netherite blocks. A full 4-layer pyramid gives Speed, Haste, Resistance, Jump Boost, and Strength in a 50-block radius."
+    },
+    {
+      "category": "combat",
+      "title": "PvP Sword Combos",
+      "content": "Wait for the attack cooldown to reset before swinging again. Sprint-hit for knockback. Critical hits deal 50% more damage — fall while attacking. Axes deal more damage but are slower."
+    },
+    {
+      "category": "survival",
+      "title": "Potion Brewing",
+      "content": "Brew awkward potions first (nether wart + water bottles). Add blaze powder as fuel. Key potions: golden carrot for night vision, magma cream for fire resistance, ghast tear for regeneration."
+    }
+  ]
+}

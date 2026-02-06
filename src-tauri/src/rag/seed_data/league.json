@@ -1,0 +1,105 @@
+{
+  "game_id": "league",
+  "entries": [
+    {
+      "category": "mechanics",
+      "title": "Last Hitting",
+      "content": "Wait until a minion is low HP, then auto-attack it for gold. Melee minions have ~475 HP, casters ~300. Practice getting 8+ CS per minute. Missing CS is like falling behind in kills."
+    },
+    {
+      "category": "mechanics",
+      "title": "Wave Management",
+      "content": "Freeze the wave near your tower by only last-hitting. Slow push by killing enemy casters. Fast push to crash waves into tower before roaming. Reset waves by hard shoving before backing."
+    },
+    {
+      "category": "strategy",
+      "title": "Vision Control",
+      "content": "Ward river bushes and jungle entrances. Pink wards in defensive positions that last long. Sweep wards before objectives. Buy control wards every back. Vision wins games."
+    },
+    {
+      "category": "strategy",
+      "title": "Objective Priority",
+      "content": "Priority order: Nexus > Baron/Elder > Inhibitor > Dragon > Tower > Kills. Take objectives after winning fights. Don't chase kills when you could take a tower or dragon."
+    },
+    {
+      "category": "combat",
+      "title": "Trading in Lane",
+      "content": "Trade when the enemy goes for a last hit — they can't attack you while auto-attacking a minion. Short trades favor burst champions, long trades favor sustain. Respect power spikes."
+    },
+    {
+      "category": "mechanics",
+      "title": "Ability Combos",
+      "content": "Practice your champion's core combo in practice tool. Animation canceling saves time between abilities. Buffer abilities during CC for instant cast when it ends. Flash extends ability range."
+    },
+    {
+      "category": "strategy",
+      "title": "Power Spikes",
+      "content": "Level 2 is a huge spike in bot lane — push wave fast to hit it first. Level 6 unlocks ultimates. Key item spikes: first completed mythic, 2 items, 3 items. Fight around your spikes."
+    },
+    {
+      "category": "strategy",
+      "title": "Jungle Pathing",
+      "content": "Standard path: Buff-Gromp-Buff for level 3 gank. Full clear: Buff-Gromp-Wolves-Raptors-Red-Krugs. Track enemy jungler by checking which camps are missing. Mirror path to counter-gank."
+    },
+    {
+      "category": "combat",
+      "title": "Teamfight Positioning",
+      "content": "ADC: stay behind your frontline, attack the closest target safely. Don't chase the enemy backline. Assassins: flank and wait for key cooldowns to be used. Tanks: engage when your team is ready."
+    },
+    {
+      "category": "mechanics",
+      "title": "Kiting and Orbwalking",
+      "content": "Attack-move between auto attacks by right-clicking away then back. This keeps distance from melee threats. Use attack-move-click keybind for easier kiting. Essential for ADC players."
+    },
+    {
+      "category": "strategy",
+      "title": "Roaming Timers",
+      "content": "Roam after shoving your wave into enemy tower. The enemy laner loses CS to tower. Roam when your ultimate is up and theirs isn't. Ping your lane as missing immediately."
+    },
+    {
+      "category": "strategy",
+      "title": "Dragon Stacking",
+      "content": "Dragon soul requires 4 drakes. Each element gives different buffs. Contest every dragon after first. Set up vision 60 seconds before spawn. Dragon spawns at 5 minutes, then every 5 minutes."
+    },
+    {
+      "category": "combat",
+      "title": "Engage Timing",
+      "content": "Engage when the enemy wastes a key ability. Engage when you have a numbers advantage. Don't engage if your team isn't nearby. Ping 'On My Way' before engaging so your team follows."
+    },
+    {
+      "category": "mechanics",
+      "title": "Tower Diving",
+      "content": "Tower does increasing damage with each shot. Swap tower aggro by backing off after it targets you. Dive with 2+ people. Kill the target fast and walk out. Don't greed for extra kills."
+    },
+    {
+      "category": "strategy",
+      "title": "Baron Play",
+      "content": "Take Baron after winning a fight where 2+ enemies die. Baron spawns at 20 minutes. The empowered recall and minion buff are the real value. Use Baron buff to siege and take inhibitors."
+    },
+    {
+      "category": "mechanics",
+      "title": "Summoner Spell Usage",
+      "content": "Flash is 300-second cooldown — use it to dodge key abilities or secure kills. Ignite reduces healing by 40% — use it on healers. Track enemy flash timing and punish when it's down."
+    },
+    {
+      "category": "strategy",
+      "title": "Comeback Mechanics",
+      "content": "When behind, farm safely and avoid fights. Look for picks on overextended enemies. Scale to item power spikes. Shutdown gold from killing fed enemies is huge. Play around objectives."
+    },
+    {
+      "category": "combat",
+      "title": "Support Basics",
+      "content": "Poke when enemies go for CS. Stand in bushes for fog of war advantage. Roam with jungler after pushing lane. Peel for your carry in teamfights — don't dive the enemy backline."
+    },
+    {
+      "category": "mechanics",
+      "title": "Recall Timing",
+      "content": "Back when you have enough gold for a component item. Back after shoving the wave to deny enemy roam. Don't back with a huge wave crashing into your tower. Buy with 1000+ gold ideally."
+    },
+    {
+      "category": "strategy",
+      "title": "Split Pushing",
+      "content": "Split push when you win 1v1s and have escape tools. Your team should pressure elsewhere while you split. Only split when you have teleport or can join fights. Ward deep when splitting."
+    }
+  ]
+}

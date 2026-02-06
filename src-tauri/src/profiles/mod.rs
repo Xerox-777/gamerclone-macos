@@ -1,1 +1,3 @@
-// Phase 6: Game profile definitions and system prompt templates
+mod definitions;
+
+pub use definitions::{all_profiles, get_profile, get_profile_or_default};

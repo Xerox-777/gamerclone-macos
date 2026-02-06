@@ -1,0 +1,105 @@
+{
+  "game_id": "elden_ring",
+  "entries": [
+    {
+      "category": "combat",
+      "title": "Roll Timing",
+      "content": "Dodge roll has invincibility frames (i-frames) during the middle of the animation. Roll into attacks, not away from them. Medium equip load gives a normal roll, heavy load gives a fat roll."
+    },
+    {
+      "category": "combat",
+      "title": "Stamina Management",
+      "content": "Never let your stamina fully deplete — you can't dodge with zero stamina. Keep enough for at least one roll in reserve. Two-handing a weapon doesn't use more stamina than one-handing."
+    },
+    {
+      "category": "mechanics",
+      "title": "Equip Load",
+      "content": "Stay below 70% equip load for medium roll. Below 30% for light roll (fastest). Above 70% is heavy roll — too slow to dodge effectively. Endurance and Erdtree's Favor talisman increase equip load."
+    },
+    {
+      "category": "strategy",
+      "title": "Leveling Priority",
+      "content": "First, level Vigor to 40 for survivability. Then your main damage stat to soft cap. Quality builds: even STR/DEX. Caster builds: Mind for FP, then INT or FTH. Don't spread points too thin."
+    },
+    {
+      "category": "combat",
+      "title": "Guard Counters",
+      "content": "Block an attack with a shield, then immediately heavy attack for a guard counter. This deals massive poise damage and often staggers enemies for a critical hit. Great against humanoid bosses."
+    },
+    {
+      "category": "mechanics",
+      "title": "Weapon Upgrading",
+      "content": "Upgrade weapons at the blacksmith using Smithing Stones. Regular weapons go to +25, Somber weapons to +10. Weapon upgrade level matters more than stats for damage. Prioritize your main weapon."
+    },
+    {
+      "category": "strategy",
+      "title": "Exploration Tips",
+      "content": "Use the telescope and map markers to scout areas. Golden tree seeds upgrade flasks. Sacred tears increase flask potency. Explore optional dungeons for smithing stones and talismans."
+    },
+    {
+      "category": "combat",
+      "title": "Boss Patterns",
+      "content": "Watch each boss for 30 seconds before attacking — learn their combo strings. Most bosses have a punish window after their longest combo. Don't get greedy — one or two hits, then dodge."
+    },
+    {
+      "category": "mechanics",
+      "title": "Spirit Ashes",
+      "content": "Summon spirit ashes in boss fights when the monument icon appears. Mimic Tear copies your build and is extremely strong. Summon early so spirits draw aggro while you deal damage."
+    },
+    {
+      "category": "strategy",
+      "title": "Rune Farming",
+      "content": "The boulder area near Lenne's Rise gives early runes. Mohgwyn Palace bird farm gives massive runes mid-game. Use the Gold Scarab talisman for 20% more runes. Pop Gold-Pickled Fowl Foot before farming."
+    },
+    {
+      "category": "combat",
+      "title": "Status Effects",
+      "content": "Bleed deals percentage HP damage when the bar fills — devastating against bosses. Frost reduces damage absorption by 20%. Rot and poison deal damage over time. Many bosses are weak to bleed."
+    },
+    {
+      "category": "mechanics",
+      "title": "Ashes of War",
+      "content": "Ashes of War change a weapon's skill and scaling. Apply them at the blacksmith or Sites of Grace. Keen adds DEX scaling, Heavy adds STR, Quality is balanced. Experiment with different weapon arts."
+    },
+    {
+      "category": "strategy",
+      "title": "NPC Questlines",
+      "content": "Talk to NPCs multiple times until dialogue repeats. Check Roundtable Hold after major bosses for new NPC interactions. Some quests are missable — complete them before end-game areas."
+    },
+    {
+      "category": "combat",
+      "title": "Mounted Combat",
+      "content": "Use Torrent for large open-world enemies. Charge attacks from horseback deal bonus damage. You can use flasks while mounted. Dismounting has i-frames. Double jump to dodge AOE attacks."
+    },
+    {
+      "category": "mechanics",
+      "title": "Flask Allocation",
+      "content": "Melee builds: mostly Crimson (HP) flasks with 1-2 Cerulean (FP). Casters: balanced split. You can reallocate at any Site of Grace. Wondrous Physick gives powerful custom buffs."
+    },
+    {
+      "category": "strategy",
+      "title": "Build Archetypes",
+      "content": "STR builds: colossal weapons, high poise, guard counter. DEX: katanas, fast attacks, bleed. INT: sorceries and magic weapons. FTH: incantations and dragon spells. Arcane: bleed and status builds."
+    },
+    {
+      "category": "combat",
+      "title": "Parry Timing",
+      "content": "Small shields have the best parry frames. Parry just as the attack is about to connect. Practice on soldiers near the start. Most boss attacks can be parried — but not all. Critical hit follows."
+    },
+    {
+      "category": "mechanics",
+      "title": "Crafting Essentials",
+      "content": "Craft Kukri for range damage. Fire pots stagger and deal good damage. Cured meat prevents poison. Warming stones heal over time. Buy cookbooks from merchants for new recipes."
+    },
+    {
+      "category": "strategy",
+      "title": "Progression Order",
+      "content": "Limgrave -> Liurnia -> Caelid (optional) -> Altus Plateau -> Mt. Gelmir -> Leyndell -> Mountaintops -> Consecrated Snowfield -> Haligtree -> Farum Azula. Level 60+ for Caelid, 80+ for Leyndell."
+    },
+    {
+      "category": "combat",
+      "title": "Jump Attacks",
+      "content": "Jump heavy attacks deal bonus poise damage and are harder for enemies to punish. Use the Claw Talisman for 15% more jump attack damage. Great for staggering bosses for a critical hit."
+    }
+  ]
+}

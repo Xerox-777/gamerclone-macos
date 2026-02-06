@@ -1,0 +1,105 @@
+{
+  "game_id": "fortnite",
+  "entries": [
+    {
+      "category": "mechanics",
+      "title": "Building Basics",
+      "content": "Master the four builds: wall, floor, ramp, and cone. Build a wall-ramp combo when pushing. Turbo build by holding the build button. Always build cover before healing."
+    },
+    {
+      "category": "mechanics",
+      "title": "Editing Speed",
+      "content": "Practice common edits: door, window, half-wall, stair turn. Pre-select the edit before you need it. Reset edits quickly by right-clicking. Fast edits create peek opportunities."
+    },
+    {
+      "category": "combat",
+      "title": "Shotgun Aim",
+      "content": "Wait for your crosshair to be on the enemy before shooting — don't spam. Pump shotguns reward patience. Jump and shoot for height advantage. Edit, shoot, reset is the core combat loop."
+    },
+    {
+      "category": "strategy",
+      "title": "Storm Positioning",
+      "content": "Check the storm timer and plan rotations early. Rotate with the storm edge, not through the center. Use vehicles or launch pads for late rotations. Always have healing items for storm damage."
+    },
+    {
+      "category": "mechanics",
+      "title": "High Ground Advantage",
+      "content": "Always fight from above when possible. 90s (wall-floor-ramp spiraling up) gain height fast. Retake high ground with ramp-cone-floor-ramp technique. High ground gives better angles and cover."
+    },
+    {
+      "category": "strategy",
+      "title": "Landing Spots",
+      "content": "Named POIs have more loot but more players. Land at the edge of named locations for safer looting. Learn 2-3 landing routes from the bus path. Loot quickly and get materials before fighting."
+    },
+    {
+      "category": "combat",
+      "title": "Box Fighting",
+      "content": "Place walls around you to create a 1x1 box. Edit peek to shoot and reset. Hold walls and listen for opponent edits. Replace their wall and edit for advantage. This is the core endgame skill."
+    },
+    {
+      "category": "mechanics",
+      "title": "Material Priorities",
+      "content": "Wood builds fastest but has least HP. Brick is balanced. Metal has highest HP but builds slowest. Use wood for quick fights, brick/metal for defensive positions. Farm mats throughout the game."
+    },
+    {
+      "category": "strategy",
+      "title": "Loadout Optimization",
+      "content": "Ideal loadout: AR + shotgun + SMG or sniper + heals + mobility item. Always carry at least 2 healing items. Mini shields (50) are used before big shields. Prioritize shield over health."
+    },
+    {
+      "category": "combat",
+      "title": "Third-Party Awareness",
+      "content": "Be aware of other players when fighting. Finish fights quickly — long build fights attract attention. Disengage if a third party approaches. Carry mobility items for quick escapes."
+    },
+    {
+      "category": "strategy",
+      "title": "Zone Wars Endgame",
+      "content": "In competitive endgame, build tunnels to rotate with the zone. Use floors and cones above for protection. Avoid taking fights unless necessary. Mat conservation is critical in late zones."
+    },
+    {
+      "category": "mechanics",
+      "title": "Piece Control",
+      "content": "Place builds around your opponent to control their movement. Ramp over their box, place walls on their sides. Cone them to prevent building up. Piece control wins box fights."
+    },
+    {
+      "category": "combat",
+      "title": "AR Tracking",
+      "content": "Track the enemy smoothly rather than flicking. Bloom is reduced when crouching and standing still. First-shot accuracy resets after a short pause. Tap fire at long range for accuracy."
+    },
+    {
+      "category": "strategy",
+      "title": "Farming Efficiently",
+      "content": "Hit the blue circle on structures for double harvest speed. Farm while rotating, not while stationary. Destroy furniture, fences, and trees. Aim for 500+ materials of each type before mid-game."
+    },
+    {
+      "category": "combat",
+      "title": "Sniper Tips",
+      "content": "Lead your shots based on distance — the bullet has travel time. Aim above distant targets for bullet drop. Crouch for first-shot accuracy. Snipe from unexpected angles and reposition after."
+    },
+    {
+      "category": "strategy",
+      "title": "Audio Awareness",
+      "content": "Listen for chest sounds when looting. Footstep audio tells direction and material type. Build sounds reveal enemy position and intentions. Glider sounds indicate nearby landing players."
+    },
+    {
+      "category": "mechanics",
+      "title": "Ramp Rush Counter",
+      "content": "When someone ramp rushes you, build a floor above their ramp to block them. Place a cone under their ramp to stop their push. Take the wall behind them to trap them."
+    },
+    {
+      "category": "combat",
+      "title": "Pump Shotgun Technique",
+      "content": "Pump-SMG swap: shoot pump, immediately switch to SMG to spray. This avoids the pump's slow fire rate. With a double pump nerf, weapon swapping to an SMG is the current meta."
+    },
+    {
+      "category": "strategy",
+      "title": "Duo and Squad Play",
+      "content": "Stay near teammates but not stacked on top of each other. Call out enemy positions using compass bearings. Focus fire one target at a time. Revive teammates behind full cover builds."
+    },
+    {
+      "category": "mechanics",
+      "title": "Zero Build Mode",
+      "content": "Without building, natural cover is critical. Use terrain, rocks, and structures. Mantling lets you climb ledges. Sprint and slide for movement. Position before engaging — you can't build cover."
+    }
+  ]
+}

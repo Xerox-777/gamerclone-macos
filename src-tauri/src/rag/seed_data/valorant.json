@@ -1,0 +1,105 @@
+{
+  "game_id": "valorant",
+  "entries": [
+    {
+      "category": "mechanics",
+      "title": "Crosshair Placement",
+      "content": "Keep your crosshair at head level at all times. Pre-aim common angles where enemies peek. This reduces the distance you need to flick and dramatically improves first-bullet accuracy."
+    },
+    {
+      "category": "mechanics",
+      "title": "Movement Accuracy",
+      "content": "Stop moving completely before shooting. Counter-strafe by tapping the opposite movement key to stop instantly. Your bullets are wildly inaccurate while moving in Valorant."
+    },
+    {
+      "category": "strategy",
+      "title": "Economy Management",
+      "content": "Full buy when your team has 3900+ credits. Force buy together as a team, never split buy. Save (eco) rounds: buy only a Sheriff or Spectre. Losing bonus gives 1900 after 2 losses."
+    },
+    {
+      "category": "strategy",
+      "title": "Default Setups",
+      "content": "On attack, spread across the map in a default setup to gain map control and information. Send 1-2 players to each area. Only commit to a site execute after gathering intel."
+    },
+    {
+      "category": "combat",
+      "title": "Peeking Techniques",
+      "content": "Use jiggle peeks to bait out shots and gather info without dying. Wide swing when you know where the enemy is. Never crouch-peek — it makes your head an easy target."
+    },
+    {
+      "category": "mechanics",
+      "title": "Spray Control",
+      "content": "The Vandal and Phantom spray patterns pull up then left-right. For the first 5 bullets, pull down slightly. At range, burst fire 2-3 bullets at a time instead of spraying."
+    },
+    {
+      "category": "strategy",
+      "title": "Post-Plant Positioning",
+      "content": "After planting the spike, play off the bomb from cover. Don't peek unnecessarily — the defenders must come to you. Listen for defuse audio cues. The spike takes 7 seconds to defuse."
+    },
+    {
+      "category": "combat",
+      "title": "Retake Priorities",
+      "content": "On retake, clear angles methodically rather than rushing. Use utility to clear common plant spots. Trade kills with your teammates. Always know how many enemies are alive."
+    },
+    {
+      "category": "agents",
+      "title": "Smoke Timing",
+      "content": "On defense, wait to smoke until you hear the enemy pushing. On attack, smoke chokepoints just before executing onto a site. Smokes last about 15 seconds for most controllers."
+    },
+    {
+      "category": "agents",
+      "title": "Flash Usage",
+      "content": "Pop flash for your teammates — call out before flashing so they can peek with it. Don't flash through smokes. Right-click Skye flash for close range, left-click for distance."
+    },
+    {
+      "category": "mechanics",
+      "title": "Audio Cues",
+      "content": "Footsteps are audible within 40 meters. Walk (hold shift) when near enemies. Abilities like Omen teleport and Jett dash make distinct sounds. The spike beep speeds up at 25 seconds."
+    },
+    {
+      "category": "strategy",
+      "title": "Map Control",
+      "content": "Control mid on most maps — it gives you access to both sites and forces defenders to watch more angles. Clear and hold mid with utility before committing to a site."
+    },
+    {
+      "category": "combat",
+      "title": "Off-Angle Play",
+      "content": "Hold unexpected angles that enemies won't pre-aim. Stand further back from corners to see the enemy first. Off-angles give you a reaction time advantage but are single-use."
+    },
+    {
+      "category": "strategy",
+      "title": "Attacking Tempo",
+      "content": "Vary your attack timing — don't always rush or always play slow. Fast executes work against heavy utility defense. Slow plays work against aggressive defenders who peek early."
+    },
+    {
+      "category": "agents",
+      "title": "Sentinel Setup",
+      "content": "Place Killjoy turrets and alarmbot to cover flanks, not to get kills. Cypher tripwires should be placed at ankle height on common paths. Move setups between rounds to stay unpredictable."
+    },
+    {
+      "category": "mechanics",
+      "title": "Vandal vs Phantom",
+      "content": "Vandal: one-tap headshot at any range, louder, harder spray. Phantom: faster fire rate, silenced, better spray control but 140 damage headshot at range. Use Phantom for close maps."
+    },
+    {
+      "category": "combat",
+      "title": "Trading Kills",
+      "content": "Always trade your teammates' deaths within 2 seconds. Stay close enough to refrag but not so close you both die to the same spray. This is the most important team mechanic."
+    },
+    {
+      "category": "strategy",
+      "title": "Anti-Eco Rounds",
+      "content": "On anti-eco (opponents saving), don't push aggressively — play safe with your better weapons. Sheriffs can one-tap, so respect even eco rounds. Maintain distance advantage."
+    },
+    {
+      "category": "agents",
+      "title": "Duelist Entry",
+      "content": "Duelists should entry first using their abilities. Jett dash or Raze satchel in. Use flashes or smokes before entering. Your team should be right behind you to trade."
+    },
+    {
+      "category": "mechanics",
+      "title": "Ability Economy",
+      "content": "Don't waste abilities early in the round. Save signature abilities for key moments. Buy utility that matches your team's plan. Orbs on the map recharge signature abilities."
+    }
+  ]
+}
