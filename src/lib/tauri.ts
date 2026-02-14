@@ -20,8 +20,8 @@ export async function listWindows(): Promise<WindowInfo[]> {
   return invoke<WindowInfo[]>("list_windows");
 }
 
-export async function selectWindow(hwnd: number): Promise<void> {
-  return invoke("select_window", { hwnd });
+export async function selectWindow(hwnd: number, captureType: string): Promise<void> {
+  return invoke("select_window", { hwnd, captureType });
 }
 
 export async function startCapture(): Promise<void> {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Monitor, RefreshCw, Square } from "lucide-react";
+import { AppWindow, Monitor, MonitorPlay, RefreshCw, Square } from "lucide-react";
 import { useCapture } from "../hooks/useCapture";
 import type { WindowInfo } from "../types";
 
@@ -27,7 +27,11 @@ export function WindowPicker() {
     return (
       <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--gc-surface)] border border-[var(--gc-success)] transition-colors">
         <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--gc-surface-hover)] text-[var(--gc-success)]">
-          <Monitor className="w-4 h-4" />
+          {selectedWindow.captureType === "monitor" ? (
+            <MonitorPlay className="w-4 h-4" />
+          ) : (
+            <Monitor className="w-4 h-4" />
+          )}
         </div>
         <div className="flex-1 min-w-0">
           <div className="text-sm font-medium text-[var(--gc-text)] truncate">
@@ -82,20 +86,39 @@ export function WindowPicker() {
                 {loading ? "Scanning..." : "No windows found"}
               </div>
             ) : (
-              windows.map((w) => (
-                <button
-                  key={w.hwnd}
-                  onClick={() => onSelect(w)}
-                  className="w-full text-left px-3 py-2 hover:bg-[var(--gc-surface-hover)] transition-colors border-b border-[var(--gc-border)] last:border-b-0"
-                >
-                  <div className="text-xs font-medium text-[var(--gc-text)] truncate">
-                    {w.title}
+              windows.map((w, i) => {
+                const isMonitor = w.captureType === "monitor";
+                const prevIsMonitor = i > 0 && windows[i - 1].captureType === "monitor";
+                const showSeparator = !isMonitor && (i === 0 || prevIsMonitor);
+
+                return (
+                  <div key={w.hwnd}>
+                    {showSeparator && (
+                      <div className="px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--gc-text-muted)] bg-[var(--gc-surface-hover)] border-b border-[var(--gc-border)]">
+                        Windows
+                      </div>
+                    )}
+                    <button
+                      onClick={() => onSelect(w)}
+                      className="w-full text-left px-3 py-2 hover:bg-[var(--gc-surface-hover)] transition-colors border-b border-[var(--gc-border)] last:border-b-0 flex items-center gap-2"
+                    >
+                      {isMonitor ? (
+                        <MonitorPlay className="w-3.5 h-3.5 text-[var(--gc-primary)] shrink-0" />
+                      ) : (
+                        <AppWindow className="w-3.5 h-3.5 text-[var(--gc-text-muted)] shrink-0" />
+                      )}
+                      <div className="min-w-0">
+                        <div className="text-xs font-medium text-[var(--gc-text)] truncate">
+                          {w.title}
+                        </div>
+                        <div className="text-[10px] text-[var(--gc-text-muted)]">
+                          {w.processName}
+                        </div>
+                      </div>
+                    </button>
                   </div>
-                  <div className="text-[10px] text-[var(--gc-text-muted)]">
-                    {w.processName}
-                  </div>
-                </button>
-              ))
+                );
+              })
             )}
           </div>
         )}

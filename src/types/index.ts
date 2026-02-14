@@ -12,6 +12,7 @@ export interface WindowInfo {
   hwnd: number;
   title: string;
   processName: string;
+  captureType: "window" | "monitor";
 }
 
 export type AppStatus =

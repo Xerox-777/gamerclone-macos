@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { Home, Settings, Gamepad2 } from "lucide-react";
+import { Home, Settings } from "lucide-react";
+import logoImg from "./images/logo.png";
 import { useAppStore } from "./stores/appStore";
 import { greet, getAllSettings } from "./lib/tauri";
 import { StatusLog } from "./components/StatusLog";
@@ -59,7 +60,7 @@ function App() {
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-3 border-b border-[var(--gc-border)] bg-[var(--gc-surface)]">
         <div className="flex items-center gap-2">
-          <Gamepad2 className="w-5 h-5 text-[var(--gc-primary)]" />
+          <img src={logoImg} alt="GamerClone" className="w-5 h-5" />
           <h1 className="text-sm font-bold tracking-wide text-[var(--gc-text)]">
             GamerClone
           </h1>

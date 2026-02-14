@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use windows_capture::monitor::Monitor;
 use windows_capture::window::Window;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -7,6 +8,7 @@ pub struct WindowInfo {
     pub hwnd: isize,
     pub title: String,
     pub process_name: String,
+    pub capture_type: String, // "window" or "monitor"
 }
 
 pub fn enumerate_windows() -> Result<Vec<WindowInfo>, String> {
@@ -38,6 +40,7 @@ pub fn enumerate_windows() -> Result<Vec<WindowInfo>, String> {
                 hwnd: raw_hwnd,
                 title,
                 process_name,
+                capture_type: "window".to_string(),
             })
         })
         .collect();
@@ -47,4 +50,39 @@ pub fn enumerate_windows() -> Result<Vec<WindowInfo>, String> {
 
     tracing::debug!("Enumerated {} windows", result.len());
     Ok(result)
+}
+
+pub fn enumerate_monitors() -> Result<Vec<WindowInfo>, String> {
+    let monitors =
+        Monitor::enumerate().map_err(|e| format!("Failed to enumerate monitors: {e}"))?;
+
+    let result: Vec<WindowInfo> = monitors
+        .iter()
+        .enumerate()
+        .filter_map(|(i, m)| {
+            let name = m.name().ok().unwrap_or_else(|| "Unknown".to_string());
+            let width = m.width().ok()?;
+            let height = m.height().ok()?;
+            let handle = m.as_raw_hmonitor() as isize;
+
+            let title = format!("Display {} \u{2014} {} ({}x{})", i + 1, name, width, height);
+
+            Some(WindowInfo {
+                hwnd: handle,
+                title,
+                process_name: "Full Screen".to_string(),
+                capture_type: "monitor".to_string(),
+            })
+        })
+        .collect();
+
+    tracing::debug!("Enumerated {} monitors", result.len());
+    Ok(result)
+}
+
+/// Returns monitors first, then windows.
+pub fn enumerate_all() -> Result<Vec<WindowInfo>, String> {
+    let mut all = enumerate_monitors().unwrap_or_default();
+    all.extend(enumerate_windows()?);
+    Ok(all)
 }

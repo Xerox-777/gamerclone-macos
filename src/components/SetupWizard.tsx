@@ -323,7 +323,7 @@ function WindowStep({ onComplete }: { onComplete: () => void }) {
 
   const handleSelect = async (win: WindowInfo) => {
     try {
-      await selectWindow(win.hwnd);
+      await selectWindow(win.hwnd, win.captureType);
       setSelected(win);
     } catch {}
   };

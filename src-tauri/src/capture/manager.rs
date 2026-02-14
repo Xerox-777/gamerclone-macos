@@ -13,6 +13,7 @@ use windows_capture::settings::{
     ColorFormat, CursorCaptureSettings, DirtyRegionSettings, DrawBorderSettings,
     MinimumUpdateIntervalSettings, SecondaryWindowSettings, Settings,
 };
+use windows_capture::monitor::Monitor;
 use windows_capture::window::Window;
 
 use super::frame_buffer::{CapturedFrame, FrameBuffer};
@@ -150,6 +151,7 @@ pub struct CaptureManager {
     capture_control: Mutex<Option<BoxedCaptureControl>>,
     is_capturing: AtomicBool,
     selected_hwnd: Mutex<Option<isize>>,
+    selected_capture_type: Mutex<Option<String>>,
     stop_flag: Arc<AtomicBool>,
     capture_interval_ms: u64,
     jpeg_quality: i32,
@@ -162,19 +164,30 @@ impl CaptureManager {
             capture_control: Mutex::new(None),
             is_capturing: AtomicBool::new(false),
             selected_hwnd: Mutex::new(None),
+            selected_capture_type: Mutex::new(None),
             stop_flag: Arc::new(AtomicBool::new(false)),
             capture_interval_ms,
             jpeg_quality,
         }
     }
 
-    pub fn start(&self, hwnd: isize) -> Result<(), String> {
-        // Stop any existing capture first
+    /// Start capturing a target by handle and type.
+    pub fn start_capture_target(
+        &self,
+        handle: isize,
+        capture_type: &str,
+    ) -> Result<(), String> {
+        match capture_type {
+            "monitor" => self.start_monitor(handle),
+            _ => self.start_window(handle),
+        }
+    }
+
+    pub fn start_window(&self, hwnd: isize) -> Result<(), String> {
         self.stop_internal();
 
         let window = Window::from_raw_hwnd(hwnd as *mut std::ffi::c_void);
 
-        // Validate window
         if !window.is_valid() {
             return Err("Invalid window handle".to_string());
         }
@@ -182,16 +195,7 @@ impl CaptureManager {
         let title = window.title().unwrap_or_else(|_| "Unknown".to_string());
         tracing::info!("Starting capture for window: {title} (hwnd: {hwnd})");
 
-        self.stop_flag.store(false, Ordering::Relaxed);
-        self.frame_buffer.clear();
-
-        let flags = CaptureFlags {
-            frame_buffer: self.frame_buffer.clone(),
-            capture_interval_ms: self.capture_interval_ms,
-            jpeg_quality: self.jpeg_quality,
-            stop_flag: Arc::clone(&self.stop_flag),
-        };
-
+        let flags = self.make_flags();
         let settings = Settings::new(
             window,
             CursorCaptureSettings::WithoutCursor,
@@ -203,15 +207,70 @@ impl CaptureManager {
             flags,
         );
 
+        self.launch_capture(settings, hwnd, "window")
+    }
+
+    pub fn start_monitor(&self, hmonitor: isize) -> Result<(), String> {
+        self.stop_internal();
+
+        let monitor =
+            Monitor::from_raw_hmonitor(hmonitor as *mut std::ffi::c_void);
+        tracing::info!("Starting capture for monitor (handle: {hmonitor})");
+
+        let flags = self.make_flags();
+        let settings = Settings::new(
+            monitor,
+            CursorCaptureSettings::WithoutCursor,
+            DrawBorderSettings::WithoutBorder,
+            SecondaryWindowSettings::Default,
+            MinimumUpdateIntervalSettings::Default,
+            DirtyRegionSettings::Default,
+            ColorFormat::Rgba8,
+            flags,
+        );
+
+        self.launch_capture(settings, hmonitor, "monitor")
+    }
+
+    fn make_flags(&self) -> CaptureFlags {
+        self.stop_flag.store(false, Ordering::Relaxed);
+        self.frame_buffer.clear();
+
+        CaptureFlags {
+            frame_buffer: self.frame_buffer.clone(),
+            capture_interval_ms: self.capture_interval_ms,
+            jpeg_quality: self.jpeg_quality,
+            stop_flag: Arc::clone(&self.stop_flag),
+        }
+    }
+
+    fn launch_capture<T>(
+        &self,
+        settings: Settings<CaptureFlags, T>,
+        handle: isize,
+        capture_type: &str,
+    ) -> Result<(), String>
+    where
+        T: TryInto<windows_capture::settings::GraphicsCaptureItemType>
+            + Send
+            + 'static,
+        T::Error: std::fmt::Debug,
+    {
         let control = CaptureHandler::start_free_threaded(settings)
             .map_err(|e| format!("Failed to start capture: {e}"))?;
 
         *self.capture_control.lock() = Some(control);
-        *self.selected_hwnd.lock() = Some(hwnd);
+        *self.selected_hwnd.lock() = Some(handle);
+        *self.selected_capture_type.lock() = Some(capture_type.to_string());
         self.is_capturing.store(true, Ordering::Relaxed);
 
         tracing::info!("Capture started successfully");
         Ok(())
+    }
+
+    /// Backward-compatible alias: starts a window capture.
+    pub fn start(&self, hwnd: isize) -> Result<(), String> {
+        self.start_window(hwnd)
     }
 
     pub fn stop(&self) {
@@ -249,6 +308,10 @@ impl CaptureManager {
 
     pub fn selected_hwnd(&self) -> Option<isize> {
         *self.selected_hwnd.lock()
+    }
+
+    pub fn selected_capture_type(&self) -> Option<String> {
+        self.selected_capture_type.lock().clone()
     }
 }
 

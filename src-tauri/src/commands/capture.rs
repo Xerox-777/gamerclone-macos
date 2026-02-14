@@ -1,7 +1,7 @@
 use serde::Serialize;
 use tauri::State;
 
-use crate::capture::{enumerate_windows, WindowInfo};
+use crate::capture::{enumerate_all, WindowInfo};
 use crate::state::AppState;
 
 #[derive(Debug, Clone, Serialize)]
@@ -13,12 +13,18 @@ pub struct CaptureStatus {
 
 #[tauri::command]
 pub fn list_windows() -> Result<Vec<WindowInfo>, String> {
-    enumerate_windows()
+    enumerate_all()
 }
 
 #[tauri::command]
-pub fn select_window(hwnd: isize, state: State<'_, AppState>) -> Result<(), String> {
-    state.capture_manager.start(hwnd)
+pub fn select_window(
+    hwnd: isize,
+    capture_type: String,
+    state: State<'_, AppState>,
+) -> Result<(), String> {
+    state
+        .capture_manager
+        .start_capture_target(hwnd, &capture_type)
 }
 
 #[tauri::command]
@@ -27,7 +33,13 @@ pub fn start_capture(state: State<'_, AppState>) -> Result<(), String> {
         .capture_manager
         .selected_hwnd()
         .ok_or_else(|| "No window selected".to_string())?;
-    state.capture_manager.start(hwnd)
+    let capture_type = state
+        .capture_manager
+        .selected_capture_type()
+        .unwrap_or_else(|| "window".to_string());
+    state
+        .capture_manager
+        .start_capture_target(hwnd, &capture_type)
 }
 
 #[tauri::command]

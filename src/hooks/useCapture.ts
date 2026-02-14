@@ -38,7 +38,7 @@ export function useCapture() {
   const handleSelectWindow = useCallback(
     async (window: WindowInfo) => {
       try {
-        await selectWindow(window.hwnd);
+        await selectWindow(window.hwnd, window.captureType);
         setSelectedWindow(window);
         setIsCapturing(true);
         addLogEntry("success", `Capturing: ${window.title}`);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Gamepad2, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import logoImg from "../images/logo.png";
 import { useAppStore } from "../stores/appStore";
 import { listGameProfiles, getActiveProfile, setActiveProfile, saveSetting } from "../lib/tauri";
 
@@ -43,7 +44,7 @@ export function GameSelector() {
         className="flex items-center gap-3 w-full p-3 rounded-lg bg-[var(--gc-surface)] border border-[var(--gc-border)] hover:border-[var(--gc-primary)] transition-colors text-left cursor-pointer"
       >
         <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--gc-surface-hover)] text-[var(--gc-primary)]">
-          <Gamepad2 className="w-4 h-4" />
+          <img src={logoImg} alt="" className="w-4 h-4" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="text-sm font-medium text-[var(--gc-text)]">
